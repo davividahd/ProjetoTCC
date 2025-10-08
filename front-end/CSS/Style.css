@@ -144,7 +144,7 @@
       width: 400px;
       display: flex;
       border-radius: 15px;
-      border: solid rgb(116, 116, 116);
+      border: solid rgb(158, 138, 138);
       background-color: rgb(224, 223, 223);
       margin: 15px;
     }
@@ -162,11 +162,10 @@
     padding: 115px;
     margin: 15px;
     display: flex;
-    background-image: url('imagens/trabalho.png');
-    background-size: 1980px;
-    background-repeat: no-repeat;
-    align-items: center;
-    flex-direction: column;
+    background: linear-gradient(90deg,rgba(219, 29, 29, 1) 0%, rgba(255, 59, 59, 1) 100%, rgba(218, 34, 32, 1) 38%);
+    background-size: 100;
+   align-items: center;
+   flex-direction: column;
   }
   .logindiv {
     display: flex;
@@ -193,6 +192,7 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     flex-direction: column;
     align-items: center;
+    border-color: white;
   }
   input {
     height: 30px;
@@ -205,6 +205,7 @@
     font-size: 14px;
     border-radius: 12px;
     flex-direction: row;
+    border-color: lightgrey;
   }
   button {
     height: 30px;
@@ -361,9 +362,7 @@
           padding: 115px;
           margin: 10px;
           display: flex;
-          background-image: url('imagens/trabalho.png');
-          background-size: 1420px;
-          background-repeat: no-repeat;
+          background: linear-gradient(90deg,rgba(219, 29, 29, 1) 0%, rgba(255, 59, 59, 1) 100%, rgba(218, 34, 32, 1) 38%);
           align-items: center;
           flex-direction: column;
      }
@@ -425,7 +424,7 @@
 
   }
 
-  @media screen and (max-width: 1720px) {
+  @media screen and (max-width: 2000px) {
     .slogancentro {
       display: flex;
       background-color: rgb(163, 163, 163);
@@ -441,9 +440,8 @@
       padding: 115px;
       margin: 10px;
       display: flex;
-      background-image: url('imagens/trabalho.png');
-      background-size: 1920px;
-      background-repeat: no-repeat;
+      background: linear-gradient(90deg,rgba(219, 29, 29, 1) 0%, rgba(255, 59, 59, 1) 100%, rgba(218, 34, 32, 1) 38%);
+      background-size: 100%;
       align-items: center;
       flex-direction: column;
     }
