@@ -22,30 +22,9 @@
     </ul>
 
     <div class="contatos"></div>
+   <script src="./js/mensagens.js"></script>
 
-    <script>
-        const contatosDiv = document.querySelector('.contatos');
 
-        function mostrarMensagens() {
-            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
-            mensagens.forEach(mensagem => {
-                const mensagemDiv = document.createElement('div');
-                mensagemDiv.className = 'mensagem';
-                mensagemDiv.innerHTML = `<strong>${mensagem.nome}:</strong> ${mensagem.mensagem}`;
-                contatosDiv.appendChild(mensagemDiv);
-            });
-        }
-
-        // Exibe as mensagens ao carregar a página
-        mostrarMensagens();
-
-        // Botão para deletar mensagens
-        const btnDeletar = document.getElementById('btnDeletar');
-        btnDeletar.addEventListener('click', function () {
-            localStorage.removeItem('mensagens');
-            contatosDiv.innerHTML = '';
-        });
-    </script>
 </body>
 
 </html>
