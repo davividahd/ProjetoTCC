@@ -1,6 +1,6 @@
 
   body {
-      background-color: white;
+
       font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
 
@@ -227,11 +227,12 @@
 
   .perfil {
     display: flex;
-    height: 695px;
     align-items: center;
     flex-direction: column;
     border-radius: 15px;
-    background-color: rgba(109, 8, 8, 0.5);
+    background-color: white;
+    height: 680px; 
+    width: 680px;
     
   } 
   .fotoicone {
@@ -239,15 +240,16 @@
     margin: 15px;
     background-color: black; 
     border-radius: 50%; 
-    height: 120px; 
-    width: 120px; 
-    float: left;
+    height: 200px; 
+    width: 200px; 
+
   }
   .edicao {
     display: flex;
     margin: -50px;
     align-items: center;
     flex-direction: column;
+
    border-radius: 15px;
   height: 695px;
 
