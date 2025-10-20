@@ -228,14 +228,13 @@
   .perfil {
     display: flex;
     height: 695px;
-    margin: 15px;
-    margin-top: 15px;
-    background-color: white;
     align-items: center;
     flex-direction: column;
     border-radius: 15px;
+    background-color: rgba(109, 8, 8, 0.5);
+    
   } 
-  .foto {
+  .fotoicone {
     margin-top: 15px;
     margin: 15px;
     background-color: black; 
@@ -246,10 +245,13 @@
   }
   .edicao {
     display: flex;
-    margin: 15px;
-    background-color: white;
+    margin: -50px;
     align-items: center;
     flex-direction: column;
+   border-radius: 15px;
+  height: 695px;
+
+
   }
 
 
@@ -266,6 +268,7 @@
     font-size: 25px;
     align-items: center;
     margin-top: 40px;
+    text-decoration:underline;
   }
 
 
@@ -457,3 +460,35 @@
       flex-direction: row;
     }
   }
+@media screen and (max-width: 768px) {
+  .carrossel {
+    width: 100%;
+    height: auto;
+  }
+  .card {
+    width: 90%;
+    height: auto;
+    margin: 10px auto;
+  }
+  .perfil {
+    height: auto;
+    padding: 10px;
+  }
+  ul {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+  }
+  ul li {
+    margin: 5px 0;
+  }
+  .pesquisa {
+    width: 100%;
+    max-width: none;
+    margin-bottom: 15px;
+  }
+  .campodebutoes {
+    margin-left: 0;
+    float: none;
+  }
+}
