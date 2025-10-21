@@ -1,85 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
-    <title>Página Inicial</title>
+    <title>mensagem</title>
 </head>
-  <body>
-    <div class="borda">
-        
-    </div>
 
-    <ul>
-      <li class="drop">
-              <button class="botaodrop" style="height: 50px; width: 60px;"><img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt=""></button>
-         
-              <div class="dropconteudo">
-                
-          <div style="height: 40px; "></div>    
-                <a href="./verperfil.html">Ver Perfil</a>
-                <a href="">Feed</a>
-                <a href="">Procurar Vagas</a>
-                <a href="./mensagens.html">Mensagens</a>
-                <a href="">Notificações</a>
-                <a href="">Configurações</a>
-          </div>
-      </li>
- <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20p;" src="./CSS/imagens/iconedosite.png">
-          <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
-          <li><input class="pesquisa" type="text" placeholder="Pesquisar"></li>
-              <li><a style="float:right" href=""></a></li>
-              <li><a style="float:right" href=""></a></li>
-              <li><a style="float:right" href=""></a></li>
-      </ul>
+<body>
 
-      <div class="slogan">
- 
-           <p></p>
-        </div>
-      </div>
 
-      <div class="carrossel">
-         <h2 style="margin-left: 70px; font-size: 30px; background-color: #ff2c2c;  margin-left: 45px; border-radius: 15px; height: 70px; width: 290px; text-align: center;">Vagas</h2>
-          <div class="card">
-             <img>
-             
-                </div>
-          </div>
-      </div>      
+    <ul style="height: 80px; margin-top: 35px;">
+        <img style="width: 80px; border-radius: 100px;" src="./CSS/imagens/iconedosite.png">
+        <li><h1  style="font-size: 28px; ">mensagens</h1></li>
+        <li><input style=" width:300px ;" type="text" placeholder="Pesquisar"></li>
 
-<footer>
-  <div class="rodape">
-    <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
-    <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
-    
-    <div class="links">
-      <a href="/politica-de-privacidade">Política de Privacidade</a>
-      <span>|</span>
-      <a href="/termos-de-servico">Termos de Serviço</a>
-    </div>
-    
-    <div class="social-media">
-      <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
-      </a>
-      <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
-      </a>
-      <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
-      </a>
-      <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
-      </a>
-    </div>
+            <li><button style="color: black; border: none; margin-left: 460px;">Lido</button></li>
+            <li><button style="color: black; border: none;">Fixado</button></li>
+            <li><button id="btnDeletar" style="color: rgb(255, 255, 255); background-color: red; border: solid rgb(255, 255, 255);">Deletar</button></li>
 
-    <div class="developer-info">
-      <p>Desenvolvido com ❤ por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
-    </div>
-  </div>
-</footer>
+    </ul>
 
-   </body>
+    <div class="contatos"></div>
+   <script src="./js/mensagens.js"></script>
+
+
+</body>
+
 </html>
