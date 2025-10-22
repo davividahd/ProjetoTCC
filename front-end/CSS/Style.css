@@ -173,7 +173,7 @@ ul li a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: antiquewhite;
+  background: linear-gradient(135deg, #e74c4c, #f51c1c);
 }
 
 
@@ -461,7 +461,7 @@ height: 200px;
   }
 
   .logindiv2 {
-    height: 590px;
+    height: 640px;
     width: 330px;
     background-color: white;
     flex-direction: column;
@@ -469,6 +469,7 @@ height: 200px;
     border-radius: 15px;
     align-items: center;
     text-align: center;
+
   }
 
 
@@ -542,21 +543,41 @@ height: 200px;
 
 @media screen and (max-width: 768px) {
   .carrossel {
-    width: 100%;
-    height: auto;
+    width: 600px;
+    height: 50vh;
+    padding-top: 20px;
+    
   }
 
   .card {
     width: 90%;
-    height: auto;
+    height: 100%;
     margin: 10px auto;
   }
+  .card-img-top{
+    width: 100px ; 
+    height: 100%;
+    margin: 10px auto;
+  }
+
+
+  }
+  .row.g-4 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .col-12.col-md-3 {
+    padding: 0 10px;
+  }
+
+
 
   .perfil {
     height: auto;
     padding: 10px;
   }
-}/* Estilos gerais */
+/* Estilos gerais */
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin: 0;
@@ -656,5 +677,23 @@ footer {
   .rodape {
     font-size: 0.9rem;
   }
+}
+
+.toggleCheckbox{
+
+height: 15px;
+margin-top: -10px;
+align-items: center;
+margin-right: 240px;
+cursor: pointer;
+}
+
+
+.toggleLabel{
+
+float: right;
+margin-top: -20px;
+margin-right: 230px;
+
 }
 
