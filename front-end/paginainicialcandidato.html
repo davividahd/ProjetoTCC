@@ -3,126 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
+    <link rel="stylesheet" href="./CSS/style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Página Inicial</title>
+    <title>Vagas Disponíveis</title>
 </head>
 <body>
-    <div class="borda"></div>
+    <header>
+        <div class="borda"></div>
+        <ul>
+            <li class="drop">
+                <button class="botaodrop" style="height: 50px; width: 60px;">
+                    <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
+                </button>
+                <div class="dropconteudo">
+                    <div style="height: 40px;"></div>
+                    <a href="./verperfil.html">Ver Perfil</a>
+                    <a href="">Feed</a>
+                    <a href="">Procurar Vagas</a>
+                    <a href="./mensagens.html">Mensagens</a>
+                    <a href="">Notificações</a>
+                    <a href="">Configurações</a>
+                </div>
+            </li>
+            <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png">
+            <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
+            <li><input class="pesquisa" type="text" placeholder="Pesquisar"></li>
+        </ul>
+    </header>
 
-    <ul>
-      <li class="drop">
-        <button class="botaodrop" style="height: 50px; width: 60px;">
-          <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
-        </button>
-        <div class="dropconteudo">
-          <div style="height: 40px;"></div>    
-          <a href="./verperfil.html">Ver Perfil</a>
-          <a href="">Feed</a>
-          <a href="">Procurar Vagas</a>
-          <a href="./mensagens.html">Mensagens</a>
-          <a href="">Notificações</a>
-          <a href="">Configurações</a>
+    <!-- Seção de Vagas Disponíveis -->
+    <section class="vaga-container py-5">
+        <div class="container">
+            <h2 class="textovagas">Vagas Disponíveis</h2>
+
+            <!-- Filtro de Vagas -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Buscar por cargo ou empresa">
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select">
+                        <option selected>Selecione uma localização</option>
+                        <option value="1">São Paulo</option>
+                        <option value="2">Rio de Janeiro</option>
+                        <option value="3">Belo Horizonte</option>
+                        <option value="4">Curitiba</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select">
+                        <option selected>Filtrar por tipo de trabalho</option>
+                        <option value="1">Tempo integral</option>
+                        <option value="2">Meio período</option>
+                        <option value="3">Freelancer</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Card de Vaga 1 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" alt="Imagem Vaga">
+                        <div class="card-body">
+                            <h5 class="card-title">Desenvolvedor Front-End</h5>
+                            <p class="card-text">Buscamos um desenvolvedor front-end com experiência em ReactJS e integração com APIs RESTful. Oferecemos ambiente dinâmico e oportunidades de crescimento.</p>
+                            <p><strong>Localização:</strong> São Paulo, SP</p>
+                            <p><strong>Tipo de Trabalho:</strong> Tempo Integral</p>
+                            <a href="#" class="btn btn-primary">Candidatar-se</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Vaga 2 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" alt="Imagem Vaga">
+                        <div class="card-body">
+                            <h5 class="card-title">Desenvolvedor Backend</h5>
+                            <p class="card-text">Estamos em busca de um desenvolvedor backend com experiência em Node.js e banco de dados relacionais (MySQL/PostgreSQL). Trabalhe remotamente ou no escritório em São Paulo.</p>
+                            <p><strong>Localização:</strong> Remoto ou São Paulo, SP</p>
+                            <p><strong>Tipo de Trabalho:</strong> Tempo Integral</p>
+                            <a href="#" class="btn btn-primary">Candidatar-se</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Vaga 3 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" alt="Imagem Vaga">
+                        <div class="card-body">
+                            <h5 class="card-title">Designer UI/UX</h5>
+                            <p class="card-text">Procuramos um Designer UI/UX criativo e apaixonado por criar interfaces intuitivas e funcionais. Conhecimentos em Figma e Adobe XD são essenciais.</p>
+                            <p><strong>Localização:</strong> Rio de Janeiro, RJ</p>
+                            <p><strong>Tipo de Trabalho:</strong> Meio Período</p>
+                            <a href="#" class="btn btn-primary">Candidatar-se</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </li>
-      <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png">
-      <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
-      <li><input class="pesquisa" type="text" placeholder="Pesquisar"></li>
-    </ul>
-
-    <div class="slogan">
-      <p></p>
-    </div>
-
-    <div class="carrossel">
-      <h1 class="vaga">Vagas</h1>
-      
-      <!-- Usando a estrutura de grid do Bootstrap -->
-      <div class="container">
-        <div class="row g-9"> <!-- Adiciona espaçamento entre as colunas -->
-          
-          <!-- Card 1 -->
-          <div class="col-12 col-md-4">
-            <div class="card" style="width: 25rem; height: 35rem;">
-              <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" width="500px" >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="col-12 col-md-4">
-            <div class="card" style="width: 25rem; height: 35rem;margin-right: 35px;">
-              <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" width="500px" >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="col-12 col-md-4">
-            <div class="card" style="width: 25rem; height: 35rem;">
-              <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" width="500px" >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="col-12 col-md-4">
-            <div class="card" style="width: 25rem; height: 35rem; margin-left: 1350px; margin-top: -575px;">
-              <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" width="500px" >
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
+    </section>
 
     <footer>
-      <div class="rodape">
-        <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
-        <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
+        <div class="rodape">
+            <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
+            <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
 
-        <div class="links">
-          <a href="/politica-de-privacidade">Política de Privacidade</a>
-          <span>|</span>
-          <a href="/termos-de-servico">Termos de Serviço</a>
-        </div>
+            <div class="links">
+                <a href="/politica-de-privacidade">Política de Privacidade</a>
+                <span>|</span>
+                <a href="/termos-de-servico">Termos de Serviço</a>
+            </div>
 
-        <div class="social-media">
-          <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
-          </a>
-          <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
-          </a>
-          <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
-          </a>
-          <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
-          </a>
-        </div>
+            <div class="social-media">
+                <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
+                </a>
+                <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
+                </a>
+                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
+                </a>
+                <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
+                </a>
+            </div>
 
-        <div class="developer-info">
-          <p>Desenvolvido com ❤ por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
+            <div class="developer-info">
+                <p>Desenvolvido com ❤ por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
+            </div>
         </div>
-      </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
