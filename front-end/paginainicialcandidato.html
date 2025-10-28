@@ -21,87 +21,69 @@
                     <a href="">Feed</a>
                     <a href="">Procurar Vagas</a>
                     <a href="./mensagens.html">Mensagens</a>
-                    <a href="">Notificações</a>
+                    <a href="./contatos.html">Notificações</a>
                     <a href="">Configurações</a>
                 </div>
             </li>
             <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png">
             <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
-            <li><input class="pesquisa" type="text" placeholder="Pesquisar"></li>
+            <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
         </ul>
     </header>
 
-    <!-- Seção de Vagas Disponíveis -->
+    <section>
+        <div class="carrossel">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="..." alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Third slide">
+              </div>
+            </div>
+          </div>
+</section>
+    
+
     <section class="vaga-container py-5">
         <div class="container">
+            
+
             <h2 class="textovagas">Vagas Disponíveis</h2>
 
-            <!-- Filtro de Vagas -->
+           
+
+            <!-- Filtros de Vagas -->
             <div class="row mb-4">
                 <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Buscar por cargo ou empresa">
+                    <input type="text" class="form-control" id="search-cargo" placeholder="Buscar por cargo ou empresa">
                 </div>
                 <div class="col-md-4">
-                    <select class="form-select">
+                    <select class="form-select" id="search-localizacao">
                         <option selected>Selecione uma localização</option>
-                        <option value="1">São Paulo</option>
-                        <option value="2">Rio de Janeiro</option>
-                        <option value="3">Belo Horizonte</option>
-                        <option value="4">Curitiba</option>
+                        <option value="São Paulo">São Paulo</option>
+                        <option value="Rio de Janeiro">Rio de Janeiro</option>
+                        <option value="Belo Horizonte">Belo Horizonte</option>
+                        <option value="Curitiba">Curitiba</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <select class="form-select">
+                    <select class="form-select" id="search-tipo">
                         <option selected>Filtrar por tipo de trabalho</option>
-                        <option value="1">Tempo integral</option>
-                        <option value="2">Meio período</option>
-                        <option value="3">Freelancer</option>
+                        <option value="Tempo Integral">Tempo Integral</option>
+                        <option value="Meio Período">Meio Período</option>
+                        <option value="Freelancer">Freelancer</option>
                     </select>
                 </div>
             </div>
 
-            <div class="row g-4">
-                <!-- Card de Vaga 1 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" alt="Imagem Vaga">
-                        <div class="card-body">
-                            <h5 class="card-title">Desenvolvedor Front-End</h5>
-                            <p class="card-text">Buscamos um desenvolvedor front-end com experiência em ReactJS e integração com APIs RESTful. Oferecemos ambiente dinâmico e oportunidades de crescimento.</p>
-                            <p><strong>Localização:</strong> São Paulo, SP</p>
-                            <p><strong>Tipo de Trabalho:</strong> Tempo Integral</p>
-                            <a href="#" class="btn btn-primary">Candidatar-se</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card de Vaga 2 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" alt="Imagem Vaga">
-                        <div class="card-body">
-                            <h5 class="card-title">Desenvolvedor Backend</h5>
-                            <p class="card-text">Estamos em busca de um desenvolvedor backend com experiência em Node.js e banco de dados relacionais (MySQL/PostgreSQL). Trabalhe remotamente ou no escritório em São Paulo.</p>
-                            <p><strong>Localização:</strong> Remoto ou São Paulo, SP</p>
-                            <p><strong>Tipo de Trabalho:</strong> Tempo Integral</p>
-                            <a href="#" class="btn btn-primary">Candidatar-se</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card de Vaga 3 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://unicid.vtexassets.com/arquivos/ids/161606-500-180?v=638682478577070000&width=500&height=180&aspect=true" class="card-img-top" alt="Imagem Vaga">
-                        <div class="card-body">
-                            <h5 class="card-title">Designer UI/UX</h5>
-                            <p class="card-text">Procuramos um Designer UI/UX criativo e apaixonado por criar interfaces intuitivas e funcionais. Conhecimentos em Figma e Adobe XD são essenciais.</p>
-                            <p><strong>Localização:</strong> Rio de Janeiro, RJ</p>
-                            <p><strong>Tipo de Trabalho:</strong> Meio Período</p>
-                            <a href="#" class="btn btn-primary">Candidatar-se</a>
-                        </div>
-                    </div>
-                </div>
+            <!-- Cards de Vagas -->
+            <div class="row g-4" id="vaga-container">
+                <!-- Os cards serão adicionados automaticamente aqui -->
             </div>
         </div>
     </section>
@@ -133,11 +115,144 @@
             </div>
 
             <div class="developer-info">
-                <p>Desenvolvido com ❤ por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
+                <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const vagas = [
+            {
+                titulo: "Desenvolvedor Front-End",
+                descricao: "Buscamos um desenvolvedor front-end com experiência em ReactJS e integração com APIs RESTful.",
+                localizacao: "São Paulo, SP",
+                tipoTrabalho: "Tempo Integral",
+                imagem: "https://blog.crowd.br.com/wp-content/uploads/2022/03/o-que-faz-um-desenvolvedor-front-end-1024x536.jpg",
+                link: "#"
+            },
+            {
+                titulo: "Desenvolvedor Backend",
+                descricao: "Estamos em busca de um desenvolvedor backend com experiência em Node.js e banco de dados relacionais.",
+                localizacao: "Remoto ou São Paulo, SP",
+                tipoTrabalho: "Tempo Integral",
+                imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjOWVS9d2zAr6UmFKE3yOCe3mmoNRTvnv3TQ&s",
+                link: "#"
+            },
+            {
+                titulo: "Designer UI/UX",
+                descricao: "Procuramos um Designer UI/UX criativo e apaixonado por criar interfaces intuitivas e funcionais.",
+                localizacao: "Rio de Janeiro, RJ",
+                tipoTrabalho: "Meio Período",
+                imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyXKp5nCCRFoXGMFVbhu7hlQFUpMoGcxDxRA&s",
+                link: "#"
+            },
+            {
+                titulo: "Gerente de Projetos",
+                descricao: "Buscamos um gerente de projetos para atuar em desenvolvimento ágil e coordenar equipes multidisciplinares.",
+                localizacao: "Curitiba, PR",
+                tipoTrabalho: "Tempo Integral",
+                imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbovl3LjVib7v5X1UDsWhSVAstuAkS6feTA&s",
+                link: "#"
+            },
+            {
+                titulo: "Analista de Marketing Digital",
+                descricao: "Estamos em busca de um analista de marketing digital com experiência em estratégias de SEO e campanhas pagas.",
+                localizacao: "Remoto ou São Paulo, SP",
+                tipoTrabalho: "Tempo Integral",
+                imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzSwnABm54-lUZIgOmrhoHPIKuwFRPngE88A&s",
+                link: "#"
+            },
+            {
+                titulo: "Desenvolvedor Full Stack",
+                descricao: "Procuramos um desenvolvedor full stack com experiência em tecnologias como React e Node.js para trabalhar em projetos desafiadores.",
+                localizacao: "Belo Horizonte, MG",
+                tipoTrabalho: "Tempo Integral",
+                imagem: "https://varginhadigital.com.br/wp-content/uploads/2024/01/Instituto-Federal-do-Sul-de-Minas-abre-vagas-para-especializacao-em-desenvolvimento-web.jpg",
+                link: "#"
+            }
+        ];
+
+        function criarCards(filtroVagas) {
+            const container = document.getElementById('vaga-container');
+            container.innerHTML = ''; 
+
+            filtroVagas.forEach(vaga => {
+                const card = document.createElement('div');
+                card.classList.add('col-md-4');
+                card.innerHTML = `
+                    <div class="card">
+                        <img src="${vaga.imagem}" class="card-img-top" alt="Imagem Vaga">
+                        <div class="card-body">
+                            <h5 class="card-title">${vaga.titulo}</h5>
+                            <p class="card-text">${vaga.descricao}</p>
+                            <p><strong>Localização:</strong> ${vaga.localizacao}</p>
+                            <p><strong>Tipo de Trabalho:</strong> ${vaga.tipoTrabalho}</p>
+                            <a href="${vaga.link}" class="btn btn-primary">Candidatar-se</a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function aplicarFiltros() {
+            const buscaCargo = document.getElementById('search-cargo').value.toLowerCase();
+            const localizacao = document.getElementById('search-localizacao').value;
+            const tipoTrabalho = document.getElementById('search-tipo').value;
+
+            const filtroVagas = vagas.filter(vaga => {
+                const tituloOuDescricao = vaga.titulo.toLowerCase().includes(buscaCargo) || vaga.descricao.toLowerCase().includes(buscaCargo);
+                const localizacaoValida = localizacao === 'Selecione uma localização' || vaga.localizacao.includes(localizacao);
+                const tipoValido = tipoTrabalho === 'Filtrar por tipo de trabalho' || vaga.tipoTrabalho === tipoTrabalho;
+                
+                return tituloOuDescricao && localizacaoValida && tipoValido;
+            });
+
+            criarCards(filtroVagas);
+        }
+
+        document.getElementById('search-cargo').addEventListener('input', aplicarFiltros);
+        document.getElementById('search-localizacao').addEventListener('change', aplicarFiltros);
+        document.getElementById('search-tipo').addEventListener('change', aplicarFiltros);
+        document.addEventListener("DOMContentLoaded", function () {
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.carousel-item');
+    const totalSlides = slides.length;
+
+
+    function showSlide(index) {
+        if (index >= totalSlides) {
+            slideIndex = 0; 
+        }
+        if (index < 0) {
+            slideIndex = totalSlides - 1; 
+        }
+
+       
+        slides.forEach((slide) => {
+            slide.classList.remove('active');
+        });
+
+       
+        slides[slideIndex].classList.add('active');
+    }
+
+   
+    setInterval(() => {
+        slideIndex++;
+        showSlide(slideIndex);
+    }, 3000); 
+
+  
+    showSlide(slideIndex);
+});
+
+
+        window.onload = () => criarCards(vagas);
+
+
+    </script>
 </body>
 </html>
