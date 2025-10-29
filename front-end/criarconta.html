@@ -4,37 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
-    <title>Editar Perfil</title>
+    <title>Criação de Conta</title>
+    <script>
+        // Função para alternar entre CPF e CNPJ
+        function toggleDocument() {
+            var cpfInput = document.getElementById("cpf");
+            var cnpjInput = document.getElementById("cnpj");
+            var dataNascimento = document.getElementById("dataNascimento");
+            var dataCriacaoEmpresa = document.getElementById("dataCriacaoEmpresa");
+            var dataNascimentoLabel = document.getElementById("dataNascimentoLabel");
+            var dataCriacaoEmpresaLabel = document.getElementById("dataCriacaoEmpresaLabel");
+            var toggleLabel = document.getElementById("toggleLabel");
+
+            // Verificar o estado do checkbox e alternar entre CPF e CNPJ
+            if (document.getElementById("toggleCheckbox").checked) {
+                // Exibe CNPJ e esconde CPF
+                cpfInput.style.display = "none";
+                cnpjInput.style.display = "block";
+                dataNascimento.style.display = "none";
+                dataCriacaoEmpresa.style.display = "block";
+                dataNascimentoLabel.style.display = "none";
+                dataCriacaoEmpresaLabel.style.display = "block";
+                toggleLabel.innerText = "Trocar para CPF";
+            } else {
+                // Exibe CPF e esconde CNPJ
+                cpfInput.style.display = "block";
+                cnpjInput.style.display = "none";
+                dataNascimento.style.display = "block";
+                dataCriacaoEmpresa.style.display = "none";
+                dataNascimentoLabel.style.display = "block";
+                dataCriacaoEmpresaLabel.style.display = "none";
+                toggleLabel.innerText = "Trocar para CNPJ";
+            }
+        }
+    </script>
 </head>
-<body style=" background: linear-gradient(90deg,rgba(219, 29, 29, 1) 0%, rgba(255, 59, 59, 1) 100%, rgba(218, 34, 32, 1) 38%);  ">
-    
-        <ul class="voltar" style="background-color: rgb(252, 98, 98); margin-top: -px;box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2100px;">
+<body class="loginbackground">
+
+    <div>
+        <ul class="voltar" style="background-color: rgb(252, 98, 98);margin: 20px; margin-top: -120px; width: 1910px; box-shadow: 10px 10px 25px rgb(139, 39, 39);">
             <li class="drop">
-              <button class="botaodrop" style="height: 50px; width: 60px; background-color: rgb(214, 80, 80);"><img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt=""></button>
+                <button class="botaodrop" style="height: 50px; width: 60px; background-color: rgb(219, 55, 55);">
+                    <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="" herf="./paginainicialcandidato.html">
+                </button>
             </li>
         </ul>
+    </div>
 
-    <div class="perfil" style="margin-top: 120px; margin-bottom: 100px;">
-         <h1>Editar Perfil</h1>
-        <div class="icone">
-           <img class="fotoicone" src="./CSS/imagens/perfil.jpg"> 
+    <div class="logindiv2" style="box-shadow: 10px 10px 25px rgb(139, 39, 39); margin-top: 15px;">
+        <img class="logo" src="./CSS/imagens/iconedosite.png">
+        <h2>Criar Conta</h2>
+
+        <div class="entrar">
+            <input type="text" placeholder="Email">
+            <div style="height: 5px;"></div>
+            <input type="text" placeholder="Senha">
+            <div style="height: 5px;"></div>
+            <input type="text" placeholder="Nome Completo">
+            <div style="height: 5px;"></div>
+
+            <!-- CPF e CNPJ -->
+            <input type="text" id="cpf" placeholder="CPF" style="display: block;">
+            <input type="text" id="cnpj" placeholder="CNPJ" style="display: none;">
+            <div style="height: 5px;"></div>
+
+            <!-- Data de Nascimento e Data de Criação da Empresa -->
+            <label for="dataNascimento" id="dataNascimentoLabel" style="display: block;">Data de Nascimento:</label>
+            <input style="color: rgb(0, 0, 0); text-align: center; font-size: 18px;" type="date" id="dataNascimento" name="dataNascimento" style="display: block;">
+            
+            <!-- Data de Criação da Empresa -->
+            <label for="dataCriacaoEmpresa" id="dataCriacaoEmpresaLabel" style="display: none;">Data de Criação da Empresa:</label>
+            <input style="color: rgb(0, 0, 0); text-align: center; font-size: 18px;" type="date" id="dataCriacaoEmpresa" name="dataCriacaoEmpresa" style="display: none;">
+
+            <div style="height: 8px;"></div>
+
+            <button style="background-color: rgb(255, 44, 44); border-color:rgb(255, 44, 44);">Cadastrar</button>
+            <p>OU</p>
+            <button style="background-color: rgb(225, 225, 225); color: rgb(0, 0, 0); border: solid rgb(235, 229, 229);">Entrar com o Google</button>
+            <div style="height: 10px;"></div>
+            <div class="oslink">
+                <a href="./login.html">Já tenho conta</a>
+            </div>
+
+            <!-- Botão de alternância com checkbox -->
+            <div style="margin-top: 10px;">
+                <input type="checkbox" id= "toggleCheckbox"class="toggleCheckbox" onclick="toggleDocument()" >
+                <label  class="toggleLabel"id="toggleLabel" style="vertical-align: middle; font-size: 16px; margin-left: 10px;">Trocar para CNPJ</label>
+            </div>
         </div>
-         <div class="edicao">
-               <input style="margin-top:80px; margin-bottom: 5px; width: 380px;" type="text" placeholder="Nome e Sobrenome">
-               <input style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Telefone">
-               <input style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Email">
-               <input style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Senha">
-               <label style="margin-bottom: 5px; width: 380px;" for="dataNascimento">Data de Nascimento:</label>
-            <input style="color: rgb(117, 117, 130); text-align: center; font-size: 18px; margin-bottom: 15px; width: 380px;" type="date" name="dataNascimento">
-                  <div>
-                      <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44); border-color: rgb(255, 44, 44);">Visualizar Curriculo</button>
-                      <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44);border-color: rgb(255, 44, 44);">Mudar Curriculo</button>
-                  </div>
-            <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44);border-color: rgb(255, 44, 44);">Salvar</button>
-        </div>
-     </div></div>
-     
-     <footer>
+    </div>
+   
+    <footer>
         <div class="rodape">
             <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
             <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
@@ -65,6 +125,6 @@
             </div>
         </div>
     </footer>
-
+    
 </body>
 </html>
