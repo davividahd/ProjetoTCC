@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
     <link rel="stylesheet" href="./CSS/navegaçao.css">
     <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
+    <script src="./js/conexoes.js"></script>
     <title>Criação de Conta</title>
     <script>
         // Função para alternar entre CPF e CNPJ
@@ -41,32 +43,35 @@
         }
     </script>
 </head>
+
 <body class="loginbackground">
 
     <div>
-       
-            <ul class="voltar" style="background-color: rgb(252, 98, 98);margin: 20px; margin-top: -130px; box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2100px;">
-                <li class="drop">
-                    <li class="drop">
-                        <button class="botaodrop" style="height: 50px; width: 60px;">
-                            <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
-                        </button>
-                        <div class="dropconteudo">
-                            <div style="height: 40px;"></div>
-                             <a href="./paginainicialcandidato.html">Inicio</a>
-                            <a href="">Feed</a>
-                            <a href="">Procurar Vagas</a>
-                            <a href="./mensagens.html">Mensagens</a>
-                            <a href="/contatos.html">Notificações</a>
-                            <a href="">Configurações</a>></button>
-                           <li><img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png"></li>
-                </li>
-            </ul>
-              
-              
+
+        <ul class="voltar"
+            style="background-color: rgb(252, 98, 98);margin: 20px; margin-top: -130px; box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2100px;">
+            <li class="drop">
+            <li class="drop">
+                <button class="botaodrop" style="height: 50px; width: 60px;">
+                    <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
+                </button>
+                <div class="dropconteudo">
+                    <div style="height: 40px;"></div>
+                    <a href="./paginainicialcandidato.html">Inicio</a>
+                    <a href="">Feed</a>
+                    <a href="">Procurar Vagas</a>
+                    <a href="./mensagens.html">Mensagens</a>
+                    <a href="/contatos.html">Notificações</a>
+                    <a href="">Configurações</a>></button>
+            <li><img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;"
+                    src="./CSS/imagens/iconedosite.png"></li>
+            </li>
+        </ul>
+
+
     </div>
 
-    <div class="logindiv2" style="box-shadow: 10px 10px 25px rgb(139, 39, 39); margin-top: 15px;">
+    <div class="logindiv2" style="box-shadow: 10px 10px 25px rgb(139, 39, 39); margin-top: 5px;">
         <img class="logo" src="./CSS/imagens/iconedosite.png">
         <h2>Criar Conta</h2>
 
@@ -85,56 +90,128 @@
 
             <!-- Data de Nascimento e Data de Criação da Empresa -->
             <label for="dataNascimento" id="dataNascimentoLabel" style="display: block;">Data de Nascimento:</label>
-            <input style="color: rgb(0, 0, 0); text-align: center; font-size: 18px;" type="date" id="dataNascimento" name="dataNascimento" style="display: block;">
-            
+            <input style="color: rgb(0, 0, 0); text-align: center; font-size: 18px;" type="date" id="dataNascimento"
+                name="dataNascimento" style="display: block;">
+
             <!-- Data de Criação da Empresa -->
-            <label for="dataCriacaoEmpresa" id="dataCriacaoEmpresaLabel" style="display: none;">Data de Criação da Empresa:</label>
-            <input style="color: rgb(0, 0, 0); text-align: center; font-size: 18px;" type="date" id="dataCriacaoEmpresa" name="dataCriacaoEmpresa" style="display: none;">
+            <label for="dataCriacaoEmpresa" id="dataCriacaoEmpresaLabel" style="display: none;">Data de Criação da
+                Empresa:</label>
+            <input style="color: rgb(0, 0, 0); text-align: center; font-size: 18px;" type="date" id="dataCriacaoEmpresa"
+                name="dataCriacaoEmpresa" style="display: none;">
 
             <div style="height: 8px;"></div>
 
-            <button style="background-color: rgb(255, 44, 44); border-color:rgb(255, 44, 44);">Cadastrar</button>
+            <button style="background-color: rgb(255, 44, 44); border-color:rgb(255, 44, 44); " href="login.html">
+                Cadastrar</button>
             <p>OU</p>
-            <button style="background-color: rgb(225, 225, 225); color: rgb(0, 0, 0); border: solid rgb(235, 229, 229);">Entrar com o Google</button>
+            <button
+                style="background-color: rgb(225, 225, 225); color: rgb(0, 0, 0); border: solid rgb(235, 229, 229);">Entrar
+                com o Google</button>
             <div style="height: 10px;"></div>
             <div class="oslink">
                 <a href="./login.html">Já tenho conta</a>
             </div>
+            <input type="checkbox" id="togglePCD">
+            <label class="toggleLabel" style="vertical-align: top; font-size: 16px; margin-right: 120px;">PCD</label>
 
             <!-- Botão de alternância com checkbox -->
             <div style="margin-top: 10px;">
-                <input type="checkbox" id= "toggleCheckbox"class="toggleCheckbox" onclick="toggleDocument()" >
-                <label  class="toggleLabel"id="toggleLabel" style="vertical-align: middle; font-size: 16px; margin-left: 10px;">Trocar para CNPJ</label>
+                <input type="checkbox" id="toggleCheckbox" class="toggleCheckbox" onclick="toggleDocument()">
+                <label class="toggleLabel" id="toggleLabel"
+                    style="vertical-align: middle; font-size: 16px; margin-left: 10px;">Trocar para CNPJ</label>
             </div>
         </div>
     </div>
-   
+
+
+    <script>
+       document.addEventListener("DOMContentLoaded", () => {
+    const botaoCadastrar = document.querySelector("button[style*='rgb(255, 44, 44)']");
+
+    botaoCadastrar.addEventListener("click", async () => {
+        // Coleta dos campos
+        const email = document.querySelector("input[placeholder='Email']").value;
+        const senha = document.querySelector("input[placeholder='Senha']").value;
+        const nome_completo = document.querySelector("input[placeholder='Nome Completo']").value;
+        const cpf = document.getElementById("cpf").value;
+        const cnpj = document.getElementById("cnpj").value;
+        const telefone = "11999999999"; // depois você pode criar um campo pra isso
+        const limite = 1000; // exemplo de valor fixo
+        const id_endereco = 1;
+        const id_status = 1;
+
+        // Aqui pegamos o valor real do checkbox PCD
+        const is_pcd = document.getElementById("togglePCD").checked;
+
+        // Decide qual documento enviar
+        const documento = cpf || cnpj;
+
+        // Monta o corpo da requisição
+        const dados = {
+            cpf: documento,
+            telefone,
+            nome_completo,
+            email,
+            id_endereco,
+            id_status,
+            senha,
+            limite,
+            is_pcd // agora será true ou false dependendo do checkbox
+        };
+
+        try {
+            const resposta = await fetch("http://localhost:3000/tcc/add_usuario", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dados)
+            });
+
+            const resultado = await resposta.json();
+            console.log("Resultado:", resultado);
+
+            if (resposta.ok) {
+                alert("Usuário cadastrado com sucesso!");
+            } else {
+                alert("Erro: " + (resultado.mensagem || "Falha no cadastro"));
+            }
+
+        } catch (erro) {
+            console.error("Erro na requisição:", erro);
+            alert("Erro ao conectar com o servidor!");
+        }
+    });
+});
+
+    </script>
+
+
+
     <footer>
         <div class="rodape">
             <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
             <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
-    
+
             <div class="links">
                 <a href="/politica-de-privacidade">Política de Privacidade</a>
                 <span>|</span>
                 <a href="/termos-de-servico">Termos de Serviço</a>
             </div>
-    
+
             <div class="social-media">
                 <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook" />
                 </a>
                 <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter" />
                 </a>
                 <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn" />
                 </a>
                 <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram" />
                 </a>
             </div>
-    
+
             <div class="developer-info">
                 <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
             </div>
@@ -142,4 +219,5 @@
     </footer>
 
 </body>
+
 </html>
