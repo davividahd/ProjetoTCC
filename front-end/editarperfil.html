@@ -8,81 +8,82 @@
     <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
     <title>Editar Perfil</title>
 </head>
-<body style=" background: linear-gradient(90deg,rgba(219, 29, 29, 1) 0%, rgba(255, 59, 59, 1) 100%, rgba(218, 34, 32, 1) 38%);  ">
-    
-        <ul class="voltar" style="background-color: rgb(252, 98, 98); margin-top: -px;box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2100px;">
-           
-                <li class="drop">
-                    <li class="drop">
-                        <button class="botaodrop" style="height: 50px; width: 60px;">
-                            <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
-                        </button>
-                        <div class="dropconteudo">
-                            <div style="height: 40px;"></div>
-                             <a href="./paginainicialcandidato.html">Inicio</a>
-                            <a href="">Feed</a>
-                            <a href="">Procurar Vagas</a>
-                            <a href="./mensagens.html">Mensagens</a>
-                            <a href="/contatos.html">Notificações</a>
-                            <a href="">Configurações</a>></button>
-                         
-            <li><img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png"></li>
-                </li>
-            </ul>
-              
-              
+<body style="background: linear-gradient(90deg,rgba(219, 29, 29, 1) 0%, rgba(255, 59, 59, 1) 100%, rgba(218, 34, 32, 1) 38%);">
+
+    <ul class="voltar" style="background-color: rgb(252, 98, 98); margin-top: -px; box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2100px;">
+        <li class="drop">
+            <button class="botaodrop" style="height: 50px; width: 60px;">
+                <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
+            </button>
+            <div class="dropconteudo">
+                <div style="height: 40px;"></div>
+                <a href="./paginainicialcandidato.html">Inicio</a>
+                <a href="">Feed</a>
+                <a href="">Procurar Vagas</a>
+                <a href="./mensagens.html">Mensagens</a>
+                <a href="/contatos.html">Notificações</a>
+                <a href="">Configurações</a>
+            </div>
+        </li>
+        <li>
+            <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png" alt="Ícone do Site">
+        </li>
+    </ul>
 
     <div class="perfil" style="margin-top: 120px; margin-bottom: 100px;">
-         <h1>Editar Perfil</h1>
+        <h1>Editar Perfil</h1>
         <div class="icone">
-           <img class="fotoicone" src="./CSS/imagens/perfil.jpg"> 
+            <img class="fotoicone" src="./CSS/imagens/perfil.jpg" alt="Foto de Perfil">
         </div>
-         <div class="edicao">
-               <input style="margin-top:80px; margin-bottom: 5px; width: 380px;" type="text" placeholder="Nome e Sobrenome">
-               <input style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Telefone">
-               <input style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Email">
-               <input style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Senha">
-               <label style="margin-bottom: 5px; width: 380px;" for="dataNascimento">Data de Nascimento:</label>
-            <input style="color: rgb(117, 117, 130); text-align: center; font-size: 18px; margin-bottom: 15px; width: 380px;" type="date" name="dataNascimento">
-                  <div>
-                      <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44); border-color: rgb(255, 44, 44);">Visualizar Curriculo</button>
-                      <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44);border-color: rgb(255, 44, 44);">Mudar Curriculo</button>
-                  </div>
-            <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44);border-color: rgb(255, 44, 44);">Salvar</button>
+        <div class="edicao">
+            <input id="campoNome" style="margin-top:80px; margin-bottom: 5px; width: 380px;" type="text" placeholder="Nome e Sobrenome">
+            <input id="campoTelefone" style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Telefone">
+            <input id="campoEmail" style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Email">
+            <input id="campoSenha" style="margin-bottom: 5px; width: 380px;" type="text" placeholder="Senha">
+            <label style="margin-bottom: 5px; width: 380px;" for="campoData">Data de Nascimento:</label>
+            <input id="campoData" style="color: rgb(117, 117, 130); text-align: center; font-size: 18px; margin-bottom: 15px; width: 380px;" type="date" name="dataNascimento">
+
+            <div>
+                <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44); border-color: rgb(255, 44, 44);">Visualizar Curriculo</button>
+                <button style="margin-bottom: 15px; background-color: rgb(255, 44, 44); border-color: rgb(255, 44, 44);">Mudar Curriculo</button>
+            </div>
+
+            <button id="btnSalvar" style="margin-bottom: 15px; background-color: rgb(255, 44, 44); border-color: rgb(255, 44, 44);">Salvar</button>
         </div>
-     </div></div>
-     
-     <footer>
+    </div>
+
+    <footer>
         <div class="rodape">
             <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
             <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
-    
+
             <div class="links">
                 <a href="/politica-de-privacidade">Política de Privacidade</a>
                 <span>|</span>
                 <a href="/termos-de-servico">Termos de Serviço</a>
             </div>
-    
+
             <div class="social-media">
-                <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
+                <a href="https://www.facebook.com/FusionDevs" target="_blank">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
                 </a>
-                <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
+                <a href="https://twitter.com/FusionDevs" target="_blank">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
                 </a>
-                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
+                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
                 </a>
-                <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
+                <a href="https://www.instagram.com/FusionDevs" target="_blank">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
                 </a>
             </div>
-    
+
             <div class="developer-info">
                 <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
             </div>
         </div>
     </footer>
 
+    <script src="./js/editarperfil.js"></script>
 </body>
 </html>
