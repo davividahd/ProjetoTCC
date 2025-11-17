@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./CSS/navegaçao.css">
+    <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
+    <title>Minhas Vagas Criadas</title>
+</head>
+<body>
+
+<header>
+    <div class="borda"></div>
+    <ul>
+        <li class="drop">
+            <button class="botaodrop" style="height: 50px; width: 60px;">
+                <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="Menu">
+            </button>
+            <div class="dropconteudo">
+                <div style="height: 40px;"></div>
+                <a href="./verperfil.html">Ver Perfil</a>
+                <a href="">Painel</a>
+                <a href="">Minhas Vagas</a>
+                <a href="./mensagens.html">Mensagens</a>
+                <a href="./contatos.html">Notificações</a>
+                <a href="">Configurações</a>
+            </div>
+        </li>
+        
+        <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png">
+        <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
+        <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
+        <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height: 40px; width: 40px; border-radius: 50%;">🌙</button></li>
+    </ul>
+</header>
+
+<section class="vaga-container py-5">
+    <div class="container">
+        <h2 class="textovagas">Minhas Vagas Criadas</h2>
+
+        <!-- Botão Criar Vaga -->
+        <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#modalCriarVaga">
+            ➕ Criar Nova Vaga
+        </button>
+
+        <!-- Filtros -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="search-cargo" placeholder="Buscar por cargo">
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" id="search-localizacao">
+                    <option selected>Selecione uma localização</option>
+                    <option value="São Paulo">São Paulo</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro</option>
+                    <option value="Curitiba">Curitiba</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Lista de Vagas -->
+        <div class="row g-4" id="vaga-container"></div>
+    </div>
+</section>
+
+<!-- Modal Criar Vaga -->
+<div class="modal fade" id="modalCriarVaga" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Criar Nova Vaga</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="formCriarVaga">
+                    <input class="form-control mb-2" name="titulo" placeholder="Área de trabalho" required>
+                    <input class="form-control mb-2" name="empresa" placeholder="Nome da empresa" required>
+                    <input class="form-control mb-2" name="cidade" placeholder="Cidade" required>
+                    <input class="form-control mb-2" name="estado" placeholder="Estado" required>
+                    <input class="form-control mb-2" name="salario" placeholder="Salário" required>
+                    <textarea class="form-control mb-2" name="descricao" placeholder="Descrição da vaga"></textarea>
+
+                    <select class="form-select mb-2" name="pcd">
+                        <option value="0">Não é PCD</option>
+                        <option value="1">Vaga para PCD</option>
+                    </select>
+                </form>
+
+                <div id="msg-criar" class="mt-2"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" onclick="criarVaga()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detalhes -->
+<div class="modal fade" id="modalDetalhes" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Vaga</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <h4 id="modal-titulo"></h4>
+                <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
+                <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
+                <p><strong>Tipo:</strong> <span id="modal-tipo"></span></p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const API_URL = "https://faithful-spirit-teste1.up.railway.app/tcc/busca_Vaga";
+    const container = document.getElementById("vaga-container");
+    let vagas = [];
+
+    async function carregarVagas() {
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error("Erro ao buscar vagas do servidor.");
+
+            const data = await response.json();
+
+            if (!Array.isArray(data) || data.length === 0) {
+                container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada no sistema.</p>`;
+                return;
+            }
+
+            // Mapeando com os campos REAIS da sua API
+            vagas = data.map(v => ({
+                id: v.id_vaga,
+                titulo: v.area_de_trabalho,     // nome da área
+                empresa: v.nome_empresa,
+                salario: v.salario,
+                cidade: v.cidade_empresa,
+                estado: v.estado_empresa,
+                is_pcd: v.is_pcd,
+                descricao: v.descricao,
+                imagem: "https://cdn-icons-png.flaticon.com/512/609/609803.png",
+                tipoTrabalho: "Tempo Integral" // pode ajustar futuramente
+            }));
+
+            criarCards(vagas);
+        } catch (erro) {
+            console.error("Erro:", erro);
+            container.innerHTML = `<p style="color:red;">Falha ao conectar com o servidor.</p>`;
+        }
+    }
+
+    function criarCards(lista) {
+        container.innerHTML = "";
+
+        lista.forEach((vaga, index) => {
+            const card = document.createElement("div");
+            card.classList.add("col-md-4", "mb-4");
+
+            card.innerHTML = `
+                <div class="card shadow-sm">
+                    <img src="${vaga.imagem}" class="card-img-top" alt="Imagem da vaga">
+                    <div class="card-body">
+                        <h5 class="card-title">${vaga.titulo}</h5>
+                        <p><strong>Empresa:</strong> ${vaga.empresa}</p>
+                        <p><strong>Localização:</strong> ${vaga.cidade} - ${vaga.estado}</p>
+                        <p><strong>Salário:</strong> R$ ${vaga.salario}</p>
+                        ${vaga.is_pcd ? '<span class="badge bg-success">PCD</span>' : ''}
+                        <button class="btn btn-primary mt-2" data-index="${index}">Detalhes</button>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(card);
+        });
+
+        // evento dos botões
+        container.querySelectorAll("button[data-index]").forEach(btn => {
+            btn.addEventListener("click", e => {
+                const i = e.target.getAttribute("data-index");
+                mostrarDetalhesVaga(i);
+            });
+        });
+    }
+
+    function mostrarDetalhesVaga(index) {
+        const vaga = vagas[index];
+        document.getElementById("modal-titulo").innerText = vaga.titulo;
+        document.getElementById("modal-imagem").src = vaga.imagem;
+        document.getElementById("modal-descricao").innerText = vaga.descricao;
+        document.getElementById("modal-localizacao").innerText = vaga.cidade + " - " + vaga.estado;
+        document.getElementById("modal-tipo").innerText = vaga.tipoTrabalho;
+        document.getElementById("modal-contato").innerText = vaga.empresa;
+
+        const modal = new bootstrap.Modal(document.getElementById("modalDetalhes"));
+        modal.show();
+    }
+
+    // FILTROS
+    function aplicarFiltros() {
+        const buscaCargo = document.getElementById("search-cargo").value.toLowerCase();
+        const localizacao = document.getElementById("search-localizacao").value;
+
+        const filtradas = vagas.filter(v => {
+            const correspondeBusca =
+                v.titulo.toLowerCase().includes(buscaCargo) ||
+                v.empresa.toLowerCase().includes(buscaCargo);
+
+            const correspondeLocal =
+                localizacao === "Selecione uma localização" ||
+                v.cidade.includes(localizacao);
+
+            return correspondeBusca && correspondeLocal;
+        });
+
+        criarCards(filtradas);
+    }
+
+    document.getElementById("search-cargo").addEventListener("input", aplicarFiltros);
+    document.getElementById("search-localizacao").addEventListener("change", aplicarFiltros);
+
+    carregarVagas();
+});
+</script>
+
+
+</script>
+
+<script src="./js/darkmode.js"></script>
+</body>
+</html>
