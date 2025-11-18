@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/style.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
+    <script src="./js/protecao.js"></script>
+    <title>Candidatar-se à Vaga</title>
+</head>
+<body>
+    <header>
+        <div class="borda"></div>
+        <ul>
+            <li class="drop">
+                <button class="botaodrop">
+                    <img src="./CSS/imagens/tracos.png" alt="Menu">
+                </button>
+                <div class="dropconteudo">
+                    <div class="espacador"></div>
+                    <a href="./verperfil.html">Ver Perfil</a>
+                    <a href="">Feed</a>
+                    <a href="./paginainicialcandidato.html">Procurar Vagas</a>
+                    <a href="./mensagens.html">Mensagens</a>
+                    <a href="./contatos.html">Notificações</a>
+                    <a href="">Configurações</a>
+                </div>
+            </li>
+            <img class="icone-site" src="./CSS/imagens/iconedosite.png">
+            <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
+            <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
+            <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height: 40px; width: 40px; border-radius: 50%; background-color: #333; color: #fff; border: none; font-size: 18px;">🌙</button></li>
+        </ul>
+    </header>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="logindiv" style="margin: 2rem auto; padding: 2rem; height: auto;">
+                <h2>Candidatar-se à Vaga</h2>
+                <p>Insira seu CPF e o ID da vaga para registrar sua candidatura.</p>
+                
+                <form id="formCandidatar">
+                    <div class="mb-3">
+                        <label for="cpf_candidato" class="form-label">Seu CPF</label>
+                        <input type="text" class="input form-control" id="cpf_candidato" required>
+                    </div>
+                     <div class="mb-3">
+                        <label for="id_vaga" class="form-label">ID da Vaga</label>
+                        <input type="number" class="input form-control" id="id_vaga" required>
+                    </div>
+                    
+                    <button type="submit" class="botaocriar" style="width: 260px;">
+                        Enviar Candidatura
+                    </button>
+                </form>
+                <div id="feedback" class="mt-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="rodape">
+            <p>© 2025 FusionDevs. Todos os direitos reservados.</p>
+            <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.getElementById("formCandidatar").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const API_URL = "https://faithful-spirit-teste1.up.railway.app/tcc/candidatar";
+            const feedbackEl = document.getElementById("feedback");
+
+            const dados = {
+                cpf: document.getElementById("cpf_candidato").value,
+                id_vaga: parseInt(document.getElementById("id_vaga").value)
+            };
+
+            feedbackEl.innerHTML = "Enviando candidatura...";
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(dados)
+                });
+
+                const resultado = await response.json();
+
+                if (!response.ok || !resultado.sucesso) {
+                    throw new Error(resultado.mensagem || "Erro ao candidatar.");
+                }
+
+                feedbackEl.innerHTML = `<div class="alert alert-success">${resultado.mensagem}</div>`;
+                e.target.reset();
+
+            } catch (error) {
+                feedbackEl.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+                console.error("Erro ao candidatar:", error);
+            }
+        });
+
+        // Preenche o ID da vaga se veio da URL
+        document.addEventListener("DOMContentLoaded", () => {
+             const urlParams = new URLSearchParams(window.location.search);
+             const vagaId = urlParams.get('vaga');
+             if (vagaId) {
+                document.getElementById("id_vaga").value = vagaId;
+             }
+        });
+    </script>
+    <script src="./js/darkmode.js"></script>
+</body>
+</html>

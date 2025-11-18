@@ -1,30 +1,38 @@
-// Modo Escuro
+// =========================
+// MODO ESCURO (SEM ERROS)
+// =========================
+
+// Botão do modo escuro
 const darkModeBtn = document.getElementById('toggle-dark-mode');
 
-darkModeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
+// Função principal do modo escuro
+function toggleDarkMode() {
+    const isDark = document.body.classList.toggle("dark-mode");
 
-    if (document.body.classList.contains('dark-mode')) {
-        darkModeBtn.textContent = '☀️';
-    } else {
-        darkModeBtn.textContent = '🌙';
-    }
-});
+    // Troca o ícone
+    darkModeBtn.textContent = isDark ? "☀️" : "🌙";
 
+    // Salva preferência
+    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+}
 
-
+// Carrega preferência salva
 function applyDarkModePreference() {
     const darkModeStatus = localStorage.getItem("darkMode");
+
     if (darkModeStatus === "enabled") {
         document.body.classList.add("dark-mode");
+        darkModeBtn.textContent = "☀️";
+    } else {
+        document.body.classList.remove("dark-mode");
+        darkModeBtn.textContent = "🌙";
     }
-    else (darkModeStatus === "disable")
-    document.body.classList.remove("dark-mode")
 }
 
-window.onload = () => {
+// Aplica quando a página carregar
+document.addEventListener("DOMContentLoaded", () => {
     applyDarkModePreference();
-    criarCards(vagas);
-}
+});
 
-document.getElementById("toggle-dark-mode").addEventListener("click", toggleDarkMode);
+// Evento do botão
+darkModeBtn.addEventListener("click", toggleDarkMode);

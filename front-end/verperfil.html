@@ -119,6 +119,16 @@
             }
         </script>
         <script src="./js/perfil.js"></script>
+
+        <script>
+const data = JSON.parse(localStorage.getItem("usuario"));
+
+document.getElementById("perfil-nome").innerText = data.nome;
+document.getElementById("perfil-email").innerText = data.email;
+document.getElementById("perfil-id").innerText = data.id; // CPF ou CNPJ
+document.getElementById("perfil-tipo").innerText = data.tipo;
+</script>
+
     </body>
 
 </html>

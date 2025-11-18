@@ -9,8 +9,10 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
         return;
     }
 
+    msg.innerText = "Conectando...";
+
     try {
-        const resposta = await fetch("http://localhost:3000/tcc/login", {
+        const resposta = await fetch("https://faithful-spirit-teste1.up.railway.app/tcc/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, senha, tipo })
@@ -19,19 +21,23 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
         const data = await resposta.json();
 
         if (data.sucesso) {
-            // ✅ Salva token e dados do usuário no localStorage
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("nome", data.usuario.nome || data.usuario.nome_completo);
-            localStorage.setItem("tipo", data.usuario.tipo);
 
-            msg.innerText = "✅ Login realizado! Redirecionando...";
+            // 🔥 Salva as informações do usuário
+            localStorage.setItem("jwtToken", data.token);
+            localStorage.setItem("usuario", JSON.stringify(data.usuario));
 
-            // Redireciona para a página correta
+            // 🔥 Salva o CPF (candidato) ou CNPJ (empresa)
+            localStorage.setItem("cpf_usuario_logado", data.usuario.id);
+
+            msg.innerText = "Login realizado! Redirecionando...";
+
+            // Redirecionamento correto
             if (data.usuario.tipo === "empresa") {
                 window.location.href = "./paginainicialempresa.html";
             } else {
                 window.location.href = "./paginainicialcandidato.html";
             }
+
         } else {
             msg.innerText = "❌ " + data.mensagem;
         }
