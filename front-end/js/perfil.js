@@ -54,9 +54,7 @@ btnMostrarSenha.addEventListener("click", () => {
     }
 });
 
-function logout() {
-    localStorage.clear();
-    window.location.href = "./login.html";
-}
+
 
 window.onload = carregarPerfil;
+
