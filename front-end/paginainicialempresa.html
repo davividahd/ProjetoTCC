@@ -7,8 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./CSS/navegaçao.css">
     <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
-    <script src="./js/protecao.js"></script>
-
     <title>Minhas Vagas Criadas</title>
 </head>
 <body>
@@ -24,10 +22,10 @@
                 <div style="height: 40px;"></div>
                 <a href="./verperfil.html">Ver Perfil</a>
                 <a href="">Painel</a>
-                <a href="">Minhas Vagas</a>
                 <a href="./mensagens.html">Mensagens</a>
                 <a href="./contatos.html">Notificações</a>
                 <a href="">Configurações</a>
+                 <a id="btnLogout" style="cursor:pointer; color:white;">Sair</a>
             </div>
         </li>
         
@@ -101,6 +99,66 @@
         </div>
     </div>
 </div>
+<footer>
+        <div class="rodape">
+            <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
+            <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
+            <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Vaga</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img id="modal-imagem" class="img-fluid" alt="Imagem Vaga">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 id="modal-titulo"></h5>
+                                    <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
+                                    <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
+                                    <p><strong>Tipo de Trabalho:</strong> <span id="modal-tipo"></span></p>
+                                    <p><strong>Contato:</strong> <span id="modal-contato">contato@suaempresa.com</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary">Candidatar-se</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="links">
+                <a href="/politica-de-privacidade">Política de Privacidade</a>
+                <span>|</span>
+                <a href="/termos-de-servico">Termos de Serviço</a>
+            </div>
+
+            <div class="social-media">
+                <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
+                </a>
+                <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
+                </a>
+                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
+                </a>
+                <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
+                </a>
+            </div>
+
+            <div class="developer-info">
+                <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
+            </div>
+        </div>
+    </footer>
+
+
 
 <!-- Modal Detalhes -->
 <div class="modal fade" id="modalDetalhes" tabindex="-1">
@@ -237,10 +295,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     carregarVagas();
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const btnCriarConta = document.getElementById("botaocriar");
+
+    if (token) {
+        // Usuário logado → esconde o botão
+        if (btnCriarConta) btnCriarConta.style.display = "none";
+        console.log("Usuário logado, botão 'Criar Conta' escondido.");
+    } else {
+        // Usuário não logado → mostra o botão
+        if (btnCriarConta) btnCriarConta.style.display = "inline-block";
+        console.log("Usuário não logado, botão 'Criar Conta' visível.");
+    }
+});
+
+const nomeUsuario = localStorage.getItem("usuario_nome");
+if (token && nomeUsuario) {
+    const saudacao = document.getElementById("saudacao");
+    if (saudacao) saudacao.innerText = `Olá, ${nomeUsuario}!`;
+}
+
 </script>
 
 
-</script>
+
 
 <script src="./js/darkmode.js"></script>
 </body>
