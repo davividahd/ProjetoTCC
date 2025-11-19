@@ -37,7 +37,7 @@
     </div>
 
     <div class="logindiv2" style="box-shadow: 10px 10px 25px rgb(139, 39, 39); margin-top: 5px;">
-        <img class="logo" src="./CSS/imagens/iconedosite.png">
+        <img class="logo" src="./CSS/imagens/iconedosite.png" style="margin-top: 35px;">
         <h2>Criar Conta</h2>
 
         <div class="entrar">
@@ -62,27 +62,46 @@
                 name="dataNascimento">
 
             <div style="height: 8px;"></div>
-
             <!-- ENDEREÇO - mantido visualmente coerente com seu layout -->
-            <h3 style="margin: 8px 0 6px 0;">Endereço</h3>
-            <input id="logradouro" type="text" placeholder="Logradouro (Rua / Av.)">
-            <div style="height: 5px;"></div>
-            <input id="numero" type="number" placeholder="Número">
-            <div style="height: 5px;"></div>
-            <input id="bairro" type="text" placeholder="Bairro">
-            <div style="height: 5px;"></div>
-            <input id="cidade" type="text" placeholder="Cidade">
-            <div style="height: 5px;"></div>
-            <input id="cep" type="text" maxlength="8" placeholder="CEP (somente números)">
-            <div style="height: 8px;"></div>
 
-            <!-- Telefone / status / limite / PCD -->
-            <input id="telefone" type="text" placeholder="Telefone (opcional)">
-            <div style="height: 5px;"></div>
-            <input id="id_status" type="hidden" value="1"> <!-- você pode trocar esse valor dinamicamente -->
-            <input id="limite" type="hidden" value="1.0">
-            <input type="checkbox" id="togglePCD">
-            <label class="toggleLabel" style="vertical-align: top; font-size: 16px; margin-right: 120px;">PCD</label>
+              <div class="Local">
+                <h3 style="margin: 8px 0 6px 0;">Endereço</h3>
+                <input id="logradouro" type="text" placeholder="Logradouro (Rua / Av.)">
+                <div style="height: 5px;"></div>
+                <input id="numero" type="number" placeholder="Número">
+                <div style="height: 5px;"></div>
+                <input id="bairro" type="text" placeholder="Bairro">
+                <div style="height: 5px;"></div>
+                <input id="cidade" type="text" placeholder="Cidade">
+                <div style="height: 5px;"></div>
+                <input id="cep" type="text" maxlength="8" placeholder="CEP (somente números)">
+                <div style="height: 8px;"></div>
+    
+                <!-- Telefone / status / limite / PCD -->
+                <input id="telefone" type="text" placeholder="Telefone (opcional)">
+                <div style="height: 5px;"></div>
+                <input id="id_status" type="hidden" value="1"> <!-- você pode trocar esse valor dinamicamente -->
+                <input id="limite" type="hidden" value="1.0">
+              </div>
+
+            
+            <!-- PCDs -->
+                 <div class="optionsPCD" id="pcdOptionsContainer"></div>
+                 <div class="optionsClassi" id="classificationOptionsContainer"></div>
+ 
+                 <div class="checkbox">
+                     <div>
+                         <input class="togglePCD" type="checkbox" id="togglePCD">
+                         <label class="toggleLabel" style="font-size: 16px;">PCD</label>
+                     </div>
+         
+                     <!-- Botão de alternância com checkbox -->
+                     <div>
+                         <input type="checkbox" id="toggleCheckbox" class="toggleCheckbox" onclick="toggleDocument()">
+                         <label class="toggleLabel" id="toggleLabel"
+                             style=" font-size: 16px;">Trocar para CNPJ</label>
+                     </div>
+                 </div>
 
             <div style="height: 10px;"></div>
 
@@ -95,12 +114,94 @@
                 style="background-color: rgb(225, 225, 225); color: rgb(0, 0, 0); border: solid rgb(235, 229, 229);">Entrar
                 com o Google</button>
             <div style="height: 10px;"></div>
-            <div class="oslink">
+            <div class="oslink" style="margin-bottom: 35px;">
                 <a href="./login.html">Já tenho conta</a>
             </div>
 
         </div>
     </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const togglePCD = document.getElementById('togglePCD');
+        const pcdOptionsContainer = document.getElementById('pcdOptionsContainer');
+        const classificationOptionsContainer = document.getElementById('classificationOptionsContainer');
+
+        togglePCD.addEventListener('change', function () {
+            if (togglePCD.checked) {
+                const select = document.createElement('select');
+                select.id = 'pcdOptions';
+                select.name = 'pcdOptions';
+                select.innerHTML = `
+                    <option value="" disabled selected>Selecione sua deficiência</option>
+                    <option value="visual">Deficiência Visual</option>
+                    <option value="auditiva">Deficiência Auditiva</option>
+                    <option value="fisica">Deficiência Física</option>
+                    <option value="intelectual">Deficiência Intelectual</option>
+                    <option value="sensorial">Deficiência Sensorial</option>
+                `;
+                pcdOptionsContainer.appendChild(select);
+
+                // Adiciona evento para criar o segundo <select> com classificações
+                select.addEventListener('change', function () {
+                    const selectedValue = select.value;
+
+                    // Remove o <select> de classificações anterior, se existir
+                    classificationOptionsContainer.innerHTML = '';
+
+                    // Cria o novo <select> com base na deficiência selecionada
+                    const classificationSelect = document.createElement('select');
+                    classificationSelect.id = 'classificationOptions';
+                    classificationSelect.name = 'classificationOptions';
+
+                    if (selectedValue === 'visual') {
+                        classificationSelect.innerHTML = `
+                            <option value="" disabled selected>Selecione a classificação</option>
+                            <option value="cegueira">Cegueira</option>
+                            <option value="baixa_visao">Baixa Visão</option>
+                        `;
+                    } else if (selectedValue === 'auditiva') {
+                        classificationSelect.innerHTML = `
+                            <option value="" disabled selected>Selecione a classificação</option>
+                            <option value="surdez">Surdez</option>
+                            <option value="deficiencia_auditiva">Deficiência Auditiva</option>
+                        `;
+                    } else if (selectedValue === 'fisica') {
+                        classificationSelect.innerHTML = `
+                            <option value="" disabled selected>Selecione a classificação</option>
+                            <option value="paraplegia">Paraplegia</option>
+                            <option value="tetraplegia">Tetraplegia</option>
+                            <option value="amputacao">Amputação</option>
+                        `;
+                    } else if (selectedValue === 'intelectual') {
+                        classificationSelect.innerHTML = `
+                            <option value="" disabled selected>Selecione a classificação</option>
+                            <option value="autismo">Autismo</option>
+                            <option value="sindrome_down">Síndrome de Down</option>
+                        `;
+                    } else if (selectedValue === 'sensorial') {
+                        classificationSelect.innerHTML = `
+                            <option value="" disabled selected>Selecione a classificação</option>
+                            <option value="hipersensibilidade">Hipersensibilidade</option>
+                            <option value="hipossensibilidade">Hipossensibilidade</option>
+                        `;
+                    }
+
+                    classificationOptionsContainer.appendChild(classificationSelect);
+                });
+            } else {
+                // Remove o <select> se o checkbox for desmarcado
+                const select = document.getElementById('pcdOptions');
+                if (select) {
+                    pcdOptionsContainer.removeChild(select);
+                }
+                classificationOptionsContainer.innerHTML = '';
+            }
+        });
+    });
+
+    </script>
 
     <footer>
         <div class="rodape">
