@@ -1,72 +1,55 @@
-const { conexao } = require('./conexao');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+document.getElementById("btnLogin").addEventListener("click", async () => {
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value;
+    const tipo = document.getElementById("tipo").value;
+    const msg = document.getElementById("msg");
 
-// ⚠️ Use variável de ambiente em produção (nunca deixe a chave no código)
-const SECRET = process.env.JWT_SECRET || "segredo_super_forte";
-
-async function login(email, senha, tipo) {
-    const conn = await conexao();
-    let tabela = "";
-
-    // Escolhe a tabela correta com base no tipo de usuário
-    if (tipo === "empresa") {
-        tabela = "tbl_empresa";
-    } else if (tipo === "candidato") {
-        tabela = "tbl_candidato";
-    } else {
-        return { sucesso: false, mensagem: "Tipo de usuário inválido." };
+    if (!email || !senha) {
+        msg.innerText = "Preencha todos os campos!";
+        return;
     }
 
-    const sql = `SELECT * FROM ${tabela} WHERE email = ?`;
+    msg.innerText = "Conectando...";
 
     try {
-        const [rows] = await conn.query(sql, [email]);
-        await conn.end();
+        const resposta = await fetch("https://faithful-spirit-teste1.up.railway.app/tcc/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, senha, tipo })
+        });
 
-        if (rows.length === 0) {
-            return { sucesso: false, mensagem: "Usuário não encontrado." };
+        const data = await resposta.json();
+        console.log("Resposta do servidor:", data);
+
+        // ----------- ERRO DE LOGIN -----------
+        if (!data.sucesso) {
+            msg.innerText = "❌ " + data.mensagem;
+            return;
         }
 
-        const usuario = rows[0];
+        // ---------- FORMATO ATUAL DO BACKEND ----------
+        // data.dados = { cpf, nome_completo, telefone, ... }
 
-        // 🔧 Verifica senha com hash
-        const senhaCorreta = await bcrypt.compare(String(senha), usuario.senha);
+        // salva o token
+        localStorage.setItem("jwtToken", data.token);
 
-        if (!senhaCorreta) {
-            return { sucesso: false, mensagem: "Senha incorreta." };
+        // salva as infos do usuário (objeto completo)
+        localStorage.setItem("usuario", JSON.stringify(data.dados));
+
+        // salva o identificador único (CPF)
+        localStorage.setItem("cpf_usuario_logado", data.dados.cpf);
+
+        msg.innerText = "Login realizado! Redirecionando...";
+
+        // tipo vem da tela, não do backend
+        if (tipo === "empresa") {
+            window.location.href = "./paginainicialempresa.html";
+        } else {
+            window.location.href = "./paginainicialcandidato.html";
         }
 
-        // ✅ Ajuste para usar CNPJ no login da empresa e CPF no candidato
-        const idUsuario = tipo === "empresa"
-            ? (usuario.id || usuario.cnpj)
-            : (usuario.id || usuario.cpf);
-
-        // ✅ Gera token
-        const token = jwt.sign(
-            {
-                id: idUsuario,
-                nome: usuario.nome,
-                tipo,
-            },
-            SECRET,
-            { expiresIn: "2h" }
-        );
-
-        return {
-            sucesso: true,
-            mensagem: "Login realizado com sucesso.",
-            token,
-            usuario: {
-                id: idUsuario,
-                nome: usuario.nome,
-                email: usuario.email,
-                tipo,
-            },
-        };
-    } catch (err) {
-        return { sucesso: false, mensagem: "Erro ao realizar login.", erro: err.message };
+    } catch (erro) {
+        console.error("Erro de conexão:", erro);
+        msg.innerText = "Erro ao conectar com o servidor.";
     }
-}
-
-module.exports = { login };
+});
