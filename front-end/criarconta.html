@@ -53,7 +53,7 @@
             <div style="height: 5px;"></div>
 
             <!-- CPF (somente CPF porque escolha 1) -->
-            <input type="text" id="cpf" placeholder="CPF (somente números)" style="display: block;">
+            <input type="text" id="cpf" placeholder="CPF (somente números)">
             <div style="height: 5px;"></div>
 
             <!-- Data de Nascimento -->
@@ -96,11 +96,10 @@
                      </div>
          
                      <!-- Botão de alternância com checkbox -->
-                     <div>
-                         <input type="checkbox" id="toggleCheckbox" class="toggleCheckbox" onclick="toggleDocument()">
-                         <label class="toggleLabel" id="toggleLabel"
-                             style=" font-size: 16px;">Trocar para CNPJ</label>
-                     </div>
+               <div>
+    <input type="checkbox" id="toggleCpfCnpj" placeholder="CPF (somente números)">
+    <label id="toggleLabel" style="font-size: 16px;">Trocar para CNPJ</label>
+</div>
                  </div>
 
             <div style="height: 10px;"></div>
@@ -199,9 +198,39 @@
                 classificationOptionsContainer.innerHTML = '';
             }
         });
-    });
+    }); 
+  
+
 
     </script>
+
+    <script>
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const checkbox = document.getElementById("toggleCpfCnpj");
+    const campo = document.getElementById("cpf");
+    const label = document.getElementById("toggleLabel");
+
+    checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+            // vira CNPJ
+            campo.placeholder = "CNPJ (somente números)";
+            campo.maxLength = 14;
+            label.textContent = "Trocar para CPF";
+        } else {
+            // volta para CPF
+            campo.placeholder = "CPF (somente números)";
+            campo.maxLength = 11;
+            label.textContent = "Trocar para CNPJ";
+        }
+    });
+});
+
+
+
+
+</script>
 
     <footer>
         <div class="rodape">
