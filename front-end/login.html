@@ -12,58 +12,45 @@
 
 <body class="loginbackground">
 
-	<ul class="voltar" style="background-color: rgb(252, 98, 98);margin: 20px; margin-top: -130px; box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2460px;">
-		<li class="drop">
-			<button class="botaodrop" style="height: 50px; width: 60px;">
-				<img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
-			</button>
-			<div class="dropconteudo">
-				<div style="height: 40px;"></div>
-				<a href="./paginainicialcandidato.html">Inicio</a>
-				<a href="">Feed</a>
-				<a href="">Procurar Vagas</a>
-				<a href="./mensagens.html">Mensagens</a>
-				<a href="/contatos.html">Notificações</a>
-				<a href="">Configurações</a>
-			</div>
-		</li>
-	</ul>
+	    <div style="position: fixed; top: 5%; left: 15px;">
+            <button class="botaovoltar" onclick="window.location.href='./inicio.html'">Voltar</button>
+        </div>
 
-	<div class="logindiv" style="margin-bottom: 100px;">
-		<img class="logo" src="./CSS/imagens/iconedosite.png">
+
+	<div class="logindiv2" style="box-shadow: 10px 10px 25px rgb(139, 39, 39); margin-top: 30px;">
+		<img class="logo" src="./CSS/imagens/logo nova.jpg" style="margin-top: 35px; border: 2px solid #ff2c2c;">
 
 		<h2>Entrar</h2>
 
 		<div class="entrar">
+			    <!-- Aqui o script poderá exibir mensagens -->
+		        <p id="msg" style="text-align: center; color: #ff2c2c;"></p>
 			
-			<input type="text" id="email" placeholder="Email">
+			<input type="text" id="email" placeholder="Email" style="color: rgb(55, 55, 55); font-weight: bold;">
 			<div style="height: 5px;"></div>
 
-			<input type="password" id="senha" placeholder="Senha">
+			<input type="password" id="senha" placeholder="Senha" style="color: rgb(55, 55, 55); font-weight: bold;">
 			<div style="height: 5px;"></div>
 
-			<select id="tipo">
+			<select id="tipo" style="height:30px; width:250px; border-radius: 15px; cursor: pointer; color: rgb(55, 55, 55); font-weight: bold;  background-color: #e1e1e1;">
 				<option value="candidato">Candidato</option>
 				<option value="empresa">Empresa</option>
 			</select>
 			<div style="height: 10px;"></div>
 
 			<!-- Botão que o script usará -->
-			<button id="btnLogin" style="background-color: rgb(255, 44, 44);border-color:rgb(255, 44, 44);">Entrar</button>
+			<button id="btnLogin" style="background-color: rgb(255, 44, 44); color: rgb(255, 255, 255); font-size: 13px; font-weight: bold; box-shadow: 4px 8px 18px rgba(0,0,0,.4)">Entrar</button>
 
 			<p>OU</p>
-			<button style="background-color: rgb(225, 225, 225); color: rgb(0, 0, 0); border: solid rgb(255, 254, 254);">Entrar com o Google</button>
+			<button style="background-color: rgb(225, 225, 225); color: rgb(0, 0, 0);border: none;  font-size: 13px; font-weight: bold; box-shadow: 4px 8px 18px rgba(0,0,0,.6);">Entrar com o Google</button>
 
-			<div style="height: 10px;"></div>
 
-			<div class="oslink">
+			<div class="oslink" style="margin-bottom: 35px; margin-top: 20px;">
 				<a style="margin-right: 10px;" href="./criarconta.html">Quero me Cadastrar</a>
 				<a style="margin-left: 10px;" href="">Esqueci minha senha</a>
 			</div>
 		</div>
 
-		<!-- Aqui o script poderá exibir mensagens -->
-		<p id="msg" style="text-align:center;color:white;margin-top:10px;"></p>
 	</div>
 
 	<footer style="width: 2400px;">
@@ -89,6 +76,11 @@
 			</div>
 		</div>
 	</footer>
-<script src="./js/login.js" ></script>
+
+   <script src="./js/login.js" ></script>
+
+      <!-- Script para o modo escuro -->
+    <script src="./js/darkmode.js"></script>
+
 </body>
 </html>
