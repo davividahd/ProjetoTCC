@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/style.css" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./CSS/navegaçao.css">
     <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
     <title>Vagas Disponíveis</title>
@@ -24,15 +24,16 @@
                     <a href="">Procurar Vagas</a>
                     <a href="./mensagens.html">Mensagens</a>
                     <a href="./contatos.html">Notificações</a>
-                    <a href="">Configurações</a>
-                    <a href="./login.html" id="btnLogout" style="cursor:pointer; color:white;">Sair </a>
+                    <a href="./configurações.html">Configurações</a>
+                    <a href="./login.html" id="btnLogout" style="cursor:pointer; color:white;">Sair</a>
                 </div>
             </li>
-            
-            <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png">
-            <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
+
+            <img style="float: left; height: 80px; width: 80px; border-radius: 50%; margin: 10px;" src="./CSS/imagens/iconedosite.png">
+
+            <li><a id="botaocriar" class="botaocriar" href="criarconta.html">Criar Conta</a></li>
             <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
-            <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height: 40px; width: 40px; border-radius: 50%; background-color: #333; color: #fff; border: none; font-size: 18px;">🌙</button></li>
+            <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height: 40px; width: 40px; border-radius: 50%;">🌙</button></li>
         </ul>
     </header>
 
@@ -46,18 +47,18 @@
             </div>
         </div>
     </section>
-    
+
     <section class="vaga-container py-5">
         <div class="container">
-            <h2 class="textovagas">Vagas Disponíveis</h2>
+            <h1 class="textovagas" style="margin-bottom: 40px;">Vagas Disponíveis</h1>
 
-            <!-- Filtros de Vagas -->
+            <!-- Filtros -->
             <div class="row mb-4">
                 <div class="col-md-4">
                     <input type="text" class="form-control" id="search-cargo" placeholder="Buscar por cargo ou empresa">
                 </div>
                 <div class="col-md-4">
-                    <select class="form-select" id="search-localizacao" title="Selecione uma localização" aria-label="Selecione uma localização">
+                    <select class="form-select" id="search-localizacao">
                         <option selected>Selecione uma localização</option>
                         <option value="São Paulo">São Paulo</option>
                         <option value="Rio de Janeiro">Rio de Janeiro</option>
@@ -75,68 +76,47 @@
                 </div>
             </div>
 
-            <!-- Cards de Vagas -->
-            <div class="row g-4" id="vaga-container">
-                <!-- Os cards serão adicionados automaticamente aqui --> 
-            </div>
+            <div class="row g-4" id="vaga-container"></div>
         </div>
     </section>
+
+    <!-- Modal Detalhes da Vaga -->
+    <div class="modal fade" id="modalDetalhes" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modal-titulo" class="modal-title"></h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modal-imagem" class="img-fluid" alt="Imagem Vaga">
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
+                            <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
+                            <p><strong>Tipo de Trabalho:</strong> <span id="modal-tipo"></span></p>
+                            <p><strong>Contato:</strong> <span id="modal-contato"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button class="btn btn-primary">Candidatar-se</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="rodape">
             <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
-            <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
-            <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Vaga</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img id="modal-imagem" class="img-fluid" alt="Imagem Vaga">
-                                </div>
-                                <div class="col-md-6">
-                                    <h5 id="modal-titulo"></h5>
-                                    <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
-                                    <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
-                                    <p><strong>Tipo de Trabalho:</strong> <span id="modal-tipo"></span></p>
-                                    <p><strong>Contato:</strong> <span id="modal-contato">contato@suaempresa.com</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Candidatar-se</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="links">
-                <a href="/politica-de-privacidade">Política de Privacidade</a>
-                <span>|</span>
+                <a href="/politica-de-privacidade">Política de Privacidade</a> |
                 <a href="/termos-de-servico">Termos de Serviço</a>
-            </div>
-
-            <div class="social-media">
-                <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
-                </a>
-                <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
-                </a>
-                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
-                </a>
-                <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
-                </a>
-            </div>
-
-            <div class="developer-info">
-                <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
             </div>
         </div>
     </footer>
@@ -144,6 +124,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+// ==========================
+//   CARREGAR VAGAS DA API
+// ==========================
 document.addEventListener("DOMContentLoaded", () => {
     const API_URL = "https://faithful-spirit-teste1.up.railway.app/tcc/busca_Vaga";
     const container = document.getElementById("vaga-container");
@@ -152,19 +135,18 @@ document.addEventListener("DOMContentLoaded", () => {
     async function carregarVagas() {
         try {
             const response = await fetch(API_URL);
-            if (!response.ok) throw new Error("Erro ao buscar vagas do servidor.");
+            if (!response.ok) throw new Error("Erro ao buscar vagas");
 
             const data = await response.json();
 
-            if (!Array.isArray(data) || data.length === 0) {
-                container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada no sistema.</p>`;
+            if (!data.length) {
+                container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada.</p>`;
                 return;
             }
 
-            // Mapeando com os campos REAIS da sua API
             vagas = data.map(v => ({
                 id: v.id_vaga,
-                titulo: v.area_de_trabalho,     // nome da área
+                titulo: v.area_de_trabalho,
                 empresa: v.nome_empresa,
                 salario: v.salario,
                 cidade: v.cidade_empresa,
@@ -172,13 +154,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 is_pcd: v.is_pcd,
                 descricao: v.descricao,
                 imagem: "https://cdn-icons-png.flaticon.com/512/609/609803.png",
-                tipoTrabalho: "Tempo Integral" // pode ajustar futuramente
+                tipoTrabalho: "Tempo Integral"
             }));
 
             criarCards(vagas);
-        } catch (erro) {
-            console.error("Erro:", erro);
-            container.innerHTML = `<p style="color:red;">Falha ao conectar com o servidor.</p>`;
+        } catch (err) {
+            container.innerHTML = `<p style="color:red;">Erro ao conectar ao servidor.</p>`;
         }
     }
 
@@ -187,11 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         lista.forEach((vaga, index) => {
             const card = document.createElement("div");
-            card.classList.add("col-md-4", "mb-4");
+            card.className = "col-md-4";
 
             card.innerHTML = `
                 <div class="card shadow-sm">
-                    <img src="${vaga.imagem}" class="card-img-top" alt="Imagem da vaga">
+                    <img src="${vaga.imagem}" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">${vaga.titulo}</h5>
                         <p><strong>Empresa:</strong> ${vaga.empresa}</p>
@@ -206,44 +187,37 @@ document.addEventListener("DOMContentLoaded", () => {
             container.appendChild(card);
         });
 
-        // evento dos botões
-        container.querySelectorAll("button[data-index]").forEach(btn => {
+        document.querySelectorAll("button[data-index]").forEach(btn => {
             btn.addEventListener("click", e => {
-                const i = e.target.getAttribute("data-index");
-                mostrarDetalhesVaga(i);
+                mostrarDetalhesVaga(e.target.getAttribute("data-index"));
             });
         });
     }
 
-    function mostrarDetalhesVaga(index) {
-        const vaga = vagas[index];
-        document.getElementById("modal-titulo").innerText = vaga.titulo;
-        document.getElementById("modal-imagem").src = vaga.imagem;
-        document.getElementById("modal-descricao").innerText = vaga.descricao;
-        document.getElementById("modal-localizacao").innerText = vaga.cidade + " - " + vaga.estado;
-        document.getElementById("modal-tipo").innerText = vaga.tipoTrabalho;
-        document.getElementById("modal-contato").innerText = vaga.empresa;
+    function mostrarDetalhesVaga(i) {
+        const v = vagas[i];
 
-        const modal = new bootstrap.Modal(document.getElementById("modalDetalhes"));
-        modal.show();
+        document.getElementById("modal-titulo").innerText = v.titulo;
+        document.getElementById("modal-imagem").src = v.imagem;
+        document.getElementById("modal-descricao").innerText = v.descricao;
+        document.getElementById("modal-localizacao").innerText = `${v.cidade} - ${v.estado}`;
+        document.getElementById("modal-tipo").innerText = v.tipoTrabalho;
+        document.getElementById("modal-contato").innerText = v.empresa;
+
+        new bootstrap.Modal(document.getElementById("modalDetalhes")).show();
     }
 
-    // FILTROS
+    // ==========================
+    //     FILTROS
+    // ==========================
     function aplicarFiltros() {
-        const buscaCargo = document.getElementById("search-cargo").value.toLowerCase();
-        const localizacao = document.getElementById("search-localizacao").value;
+        const cargo = document.getElementById("search-cargo").value.toLowerCase();
+        const loc = document.getElementById("search-localizacao").value;
 
-        const filtradas = vagas.filter(v => {
-            const correspondeBusca =
-                v.titulo.toLowerCase().includes(buscaCargo) ||
-                v.empresa.toLowerCase().includes(buscaCargo);
-
-            const correspondeLocal =
-                localizacao === "Selecione uma localização" ||
-                v.cidade.includes(localizacao);
-
-            return correspondeBusca && correspondeLocal;
-        });
+        const filtradas = vagas.filter(v =>
+            (v.titulo.toLowerCase().includes(cargo) || v.empresa.toLowerCase().includes(cargo)) &&
+            (loc === "Selecione uma localização" || v.cidade.includes(loc))
+        );
 
         criarCards(filtradas);
     }
@@ -254,25 +228,20 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarVagas();
 });
 
+
+// ==========================
+//    VERIFICAR LOGIN
+// ==========================
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     const btnCriarConta = document.getElementById("botaocriar");
 
     if (token) {
-        // Usuário logado → esconde o botão
         if (btnCriarConta) btnCriarConta.style.display = "none";
-        console.log("Usuário logado, botão 'Criar Conta' escondido.");
-    } else {
-        // Usuário não logado → mostra o botão
-        if (btnCriarConta) btnCriarConta.style.display = "inline-block";
-        console.log("Usuário não logado, botão 'Criar Conta' visível.");
     }
 });
 </script>
 
-
-
-    <!-- Script para o modo escuro -->
-    <script src="./js/darkmode.js"></script>
+<script src="./js/darkmode.js"></script>
 </body>
 </html>

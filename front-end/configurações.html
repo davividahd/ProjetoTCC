@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
+    <link rel="stylesheet" href="./CSS/navegaçao.css">
+    <link rel="stylesheet" href="./CSS/Style.css" type="text/css">
+
+    <title>Configurações</title>
+</head>
+<body>
+    <div>
+        <ul class="voltar"
+            style="background-color: rgb(252, 98, 98);margin: 20px; margin-top: -130px; box-shadow: 10px 10px 25px rgb(139, 39, 39); width: 2100px;">
+            <li class="drop">
+            <li class="drop">
+                <button class="botaodrop" style="height: 50px; width: 60px;">
+                    <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="">
+                </button>
+                <div class="dropconteudo">
+                    <div style="height: 40px;"></div>
+                    <a href="./paginainicialcandidato.html">Inicio</a>
+                    <a href="">Feed</a>
+                    <a href="">Procurar Vagas</a>
+                    <a href="./mensagens.html">Mensagens</a>
+                    <a href="/contatos.html">Notificações</a>
+                    <a href="">Configurações</a>
+                </div>
+            <li><img class="logosite" style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;"
+                    src="./CSS/imagens/iconedosite.png"></li>
+            </li>
+        </ul>
+    </div>
+
+        <div class="divconfi">
+
+            <!-- BOTÃO DO SELECT DAS PREFERÊNCIAS-->
+            <div class="configs" id="btnPrefe">
+                <h1 style="margin-left: 45px; font-size: 35px; float: left;">Preferências</h1>
+                <img class="seta" src="./CSS/imagens/seta.jpg">
+            </div>
+
+            <!-- OPÇÕES DAS PREFERÊNCIAS -->
+            <div class="opcoesConfigs" id="opcoesPrefe">
+
+                <div class="opcao">Privacidade</div>
+                <div class="opcao">Idioma</div>
+                <div class="opcao" id="temaToggle">Tema(Claro/Escuro)</div>
+                <div class="opcao">Alterar Senha</div>
+            </div>
+
+            <!-- BOTÃO DE AJUDA -->
+            <div class="configs" id="btnAjuda">
+                <h1 style="margin-left: 45px; font-size: 35px; float: left;">Ajuda</h1>
+                <img class="seta" src="./CSS/imagens/seta.jpg">
+            </div>
+
+            <!-- OPÇÕES DE AJUDA -->
+            <div class="opcoesConfigs" id="opcoesAjuda">
+                <div class="opcao">Central de Ajuda</div>
+                <div class="opcao">Termos e Políticas de Privacidade</div>
+            </div>
+        </div>
+
+
+
+            
+    <footer style="margin-top: 450px;">
+        <div class="rodape">
+            <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
+            <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
+
+            <div class="links">
+                <a href="/politica-de-privacidade">Política de Privacidade</a>
+                <span>|</span>
+                <a href="/termos-de-servico">Termos de Serviço</a>
+            </div>
+
+            <div class="social-media">
+                <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook" />
+                </a>
+                <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter" />
+                </a>
+                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn" />
+                </a>
+                <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram" />
+                </a>
+            </div>
+
+            <div class="developer-info">
+                <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
+            </div>
+        </div>
+    </footer>
+
+
+
+        <script>
+
+            function setupToggle(btnId, opcoesId) {
+                const btn = document.getElementById(btnId);
+                const opcoes = document.getElementById(opcoesId);
+
+                if (btn && opcoes) {
+                    btn.addEventListener("click", () => {
+                        const aberto = opcoes.style.display === "flex";
+                        opcoes.style.display = aberto ? "none" : "flex";
+                        btn.classList.toggle("ativo");
+                    });
+                }
+            }
+
+            // Configura os menus
+            setupToggle("btnPrefe", "opcoesPrefe");
+            setupToggle("btnAjuda", "opcoesAjuda");
+
+
+
+      </script>
+
+        <!-- Script para o modo escuro -->
+        <script src="./js/darkmode.js"></script>
+
+</body>
+</html>

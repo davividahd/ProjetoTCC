@@ -1,326 +1,429 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./CSS/style.css" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./CSS/navegaçao.css">
-    <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png">
-    <title>Minhas Vagas Criadas</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minhas Vagas Criadas</title>
+  <link rel="stylesheet" href="./CSS/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./CSS/navegaçao.css" />
+  <link rel="icon" type="image/x-icon" href="./CSS/imagens/iconedosite.png" />
+  <style>
+    /* Pequenos ajustes para visual */
+    .textovagas { margin-top: 10px; margin-bottom: 20px; }
+    .card-img-top { height: 160px; object-fit: cover; background:#f3f3f3; }
+    .borda { height: 6px; background:#0d6efd; }
+  </style>
 </head>
 <body>
 
-<header>
+  <!-- Header -->
+  <header>
     <div class="borda"></div>
     <ul>
-        <li class="drop">
-            <button class="botaodrop" style="height: 50px; width: 60px;">
-                <img style="height: 20px; width: 30px;" src="./CSS/imagens/tracos.png" alt="Menu">
-            </button>
-            <div class="dropconteudo">
-                <div style="height: 40px;"></div>
-                <a href="./verperfil.html">Ver Perfil</a>
-                <a href="">Painel</a>
-                <a href="./mensagens.html">Mensagens</a>
-                <a href="./contatos.html">Notificações</a>
-                <a href="">Configurações</a>
-                 <a id="btnLogout" style="cursor:pointer; color:white;">Sair</a>
-            </div>
-        </li>
-        
-        <img style="float: left; height: 90px; width: 90px; border-radius: 250px; margin-left: 20px; margin-top: 20px;" src="./CSS/imagens/iconedosite.png">
-        <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
-        <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
-        <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height: 40px; width: 40px; border-radius: 50%;">🌙</button></li>
-    </ul>
-</header>
-
-<section class="vaga-container py-5">
-    <div class="container">
-        <h2 class="textovagas">Minhas Vagas Criadas</h2>
-
-        <!-- Botão Criar Vaga -->
-        <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#modalCriarVaga">
-            ➕ Criar Nova Vaga
+      <li class="drop">
+        <button class="botaodrop" style="height:50px;width:60px;">
+          <img style="height:20px;width:30px;" src="./CSS/imagens/tracos.png" alt="Menu">
         </button>
-
-        <!-- Filtros -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="search-cargo" placeholder="Buscar por cargo">
-            </div>
-            <div class="col-md-4">
-                <select class="form-select" id="search-localizacao">
-                    <option selected>Selecione uma localização</option>
-                    <option value="São Paulo">São Paulo</option>
-                    <option value="Rio de Janeiro">Rio de Janeiro</option>
-                    <option value="Curitiba">Curitiba</option>
-                </select>
-            </div>
+        <div class="dropconteudo">
+          <div style="height:40px"></div>
+          <a href="./verperfil.html">Ver Perfil</a>
+          <a href="">Painel</a>
+          <a href="./mensagens.html">Mensagens</a>
+          <a href="./contatos.html">Notificações</a>
+          <a href="./configurações.html">Configurações</a>
+          <a id="btnLogout" style="cursor:pointer;color:white;">Sair</a>
         </div>
+      </li>
 
-        <!-- Lista de Vagas -->
-        <div class="row g-4" id="vaga-container"></div>
+      <img style="float:left;height:90px;width:90px;border-radius:250px;margin-left:20px;margin-top:20px;" src="./CSS/imagens/iconedosite.png" alt="logo">
+      <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
+      <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
+      <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height:40px;width:40px;border-radius:50%;">🌙</button></li>
+    </ul>
+  </header>
+
+  <!-- Main -->
+  <section class="vaga-container py-5">
+    <div class="container">
+      <h2 class="textovagas">Minhas Vagas Criadas</h2>
+
+      <!-- Criar Vaga (só visível para empresas - controlado via JS) -->
+      <div class="mb-3">
+        <button id="btnAbrirCriar" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCriarVaga">
+          ➕ Criar Nova Vaga
+        </button>
+      </div>
+
+      <!-- Filtros -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <input type="text" class="form-control" id="search-cargo" placeholder="Buscar por cargo ou empresa">
+        </div>
+        <div class="col-md-4">
+          <select class="form-select" id="search-localizacao">
+            <option selected>Selecione uma localização</option>
+            <option value="São Paulo">São Paulo</option>
+            <option value="Rio de Janeiro">Rio de Janeiro</option>
+            <option value="Curitiba">Curitiba</option>
+            <option value="Salvador">Salvador</option>
+            <option value="Belo Horizonte">Belo Horizonte</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Lista -->
+      <div class="row g-4" id="vaga-container"></div>
     </div>
-</section>
+  </section>
 
-<!-- Modal Criar Vaga -->
-<div class="modal fade" id="modalCriarVaga" tabindex="-1">
+  <!-- Modal Criar Vaga -->
+  <div class="modal fade" id="modalCriarVaga" tabindex="-1">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Criar Nova Vaga</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <form id="formCriarVaga">
-                    <input class="form-control mb-2" name="titulo" placeholder="Área de trabalho" required>
-                    <input class="form-control mb-2" name="empresa" placeholder="Nome da empresa" required>
-                    <input class="form-control mb-2" name="cidade" placeholder="Cidade" required>
-                    <input class="form-control mb-2" name="estado" placeholder="Estado" required>
-                    <input class="form-control mb-2" name="salario" placeholder="Salário" required>
-                    <textarea class="form-control mb-2" name="descricao" placeholder="Descrição da vaga"></textarea>
-
-                    <select class="form-select mb-2" name="pcd">
-                        <option value="0">Não é PCD</option>
-                        <option value="1">Vaga para PCD</option>
-                    </select>
-                </form>
-
-                <div id="msg-criar" class="mt-2"></div>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary" onclick="criarVaga()">Salvar</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Criar Nova Vaga</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
+
+        <div class="modal-body">
+          <form id="formCriarVaga">
+            <label class="form-label">Área de trabalho</label>
+            <input class="form-control mb-2" name="titulo" placeholder="Ex: Auxiliar Administrativo" required>
+
+            <label class="form-label">Salário (preço)</label>
+            <input class="form-control mb-2" name="salario" placeholder="Ex: 2500" type="number" step="0.01" required>
+
+            <label class="form-label">Categoria (área)</label>
+            <!-- Opções baseadas nas suas inserções no banco (id 1..8) -->
+            <select class="form-select mb-2" name="id_categoria">
+              <option value="1">1 - Produção</option>
+              <option value="2">2 - Logística</option>
+              <option value="3">3 - Manutenção</option>
+              <option value="4">4 - Qualidade</option>
+              <option value="5">5 - Almoxarifado</option>
+              <option value="6">6 - Recursos Humanos</option>
+              <option value="7">7 - Engenharia de Processos</option>
+              <option value="8">8 - Operações</option>
+            </select>
+
+            <label class="form-label">Descrição (opcional)</label>
+            <textarea class="form-control mb-2" name="descricao" placeholder="Descrição curta (não necessária para o DB)"></textarea>
+
+            <label class="form-label">PCD?</label>
+            <select class="form-select mb-2" name="pcd">
+              <option value="0">Não é PCD</option>
+              <option value="1">Vaga para PCD</option>
+            </select>
+          </form>
+
+          <div id="msg-criar" class="mt-2"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" id="btnSalvarVaga">Salvar</button>
+        </div>
+      </div>
     </div>
-</div>
-<footer>
-        <div class="rodape">
-            <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
-            <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
-            <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Vaga</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <img id="modal-imagem" class="img-fluid" alt="Imagem Vaga">
-                                </div>
-                                <div class="col-md-6">
-                                    <h5 id="modal-titulo"></h5>
-                                    <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
-                                    <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
-                                    <p><strong>Tipo de Trabalho:</strong> <span id="modal-tipo"></span></p>
-                                    <p><strong>Contato:</strong> <span id="modal-contato">contato@suaempresa.com</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-primary">Candidatar-se</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="links">
-                <a href="/politica-de-privacidade">Política de Privacidade</a>
-                <span>|</span>
-                <a href="/termos-de-servico">Termos de Serviço</a>
-            </div>
+  </div>
 
-            <div class="social-media">
-                <a href="https://www.facebook.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook"/>
-                </a>
-                <a href="https://twitter.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/twitter.png" alt="Twitter"/>
-                </a>
-                <a href="https://www.linkedin.com/company/fusiondevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/linkedin.png" alt="LinkedIn"/>
-                </a>
-                <a href="https://www.instagram.com/FusionDevs" target="_blank" class="social-icon">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram.png" alt="Instagram"/>
-                </a>
-            </div>
-
-            <div class="developer-info">
-                <p>Desenvolvido por <a href="https://www.fusiondevs.com" target="_blank">FusionDevs</a></p>
-            </div>
-        </div>
-    </footer>
-
-
-
-<!-- Modal Detalhes -->
-<div class="modal fade" id="modalDetalhes" tabindex="-1">
+  <!-- Modal Detalhes -->
+  <div class="modal fade" id="modalDetalhes" tabindex="-1">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Vaga</h5>
-                <button class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body">
-                <h4 id="modal-titulo"></h4>
-                <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
-                <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
-                <p><strong>Tipo:</strong> <span id="modal-tipo"></span></p>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Vaga</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
         </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-5">
+              <img id="modal-imagem" class="img-fluid" alt="Imagem Vaga" src="https://cdn-icons-png.flaticon.com/512/609/609803.png">
+            </div>
+            <div class="col-md-7">
+              <h4 id="modal-titulo"></h4>
+              <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
+              <p><strong>Localização:</strong> <span id="modal-localizacao"></span></p>
+              <p><strong>Tipo:</strong> <span id="modal-tipo"></span></p>
+              <p><strong>Empresa:</strong> <span id="modal-contato"></span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Footer -->
+  <footer class="mt-5">
+    <div class="rodape text-center py-3">
+      <p>&copy; 2025 FusionDevs. Todos os direitos reservados.</p>
+      <p>Informações de contato: <a href="mailto:contato@suaempresa.com">contato@suaempresa.com</a></p>
+    </div>
+  </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const API_URL = "https://faithful-spirit-teste1.up.railway.app/tcc/busca_Vaga";
-    const container = document.getElementById("vaga-container");
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/darkmode.js"></script>
+
+  <script>
+    // ===== CONFIG =====
+    const ROUTE_LIST = "https://faithful-spirit-teste1.up.railway.app/tcc/busca_Vaga";
+    const ROUTE_CREATE = "https://faithful-spirit-teste1.up.railway.app/tcc/add_vaga";
+
+    // ===== HELPERS =====
+    function parseJwt (token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function isEmpresaToken(token) {
+      const payload = parseJwt(token);
+      return payload && payload.tipo === 'empresa';
+    }
+
+    // ===== DOM refs =====
+    const container = document.getElementById('vaga-container');
+    const form = document.getElementById('formCriarVaga');
+    const msgCriar = document.getElementById('msg-criar');
+    const btnSalvarVaga = document.getElementById('btnSalvarVaga');
+    const btnAbrirCriar = document.getElementById('btnAbrirCriar');
+
+    // estado
     let vagas = [];
 
+    // ===== CARREGAR VAGAS =====
     async function carregarVagas() {
-        try {
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error("Erro ao buscar vagas do servidor.");
+      container.innerHTML = '<div class="text-center py-4">Carregando vagas...</div>';
+      try {
+        const res = await fetch(ROUTE_LIST);
+        if (!res.ok) throw new Error("Resposta não OK: " + res.status);
+        const data = await res.json();
 
-            const data = await response.json();
-
-            if (!Array.isArray(data) || data.length === 0) {
-                container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada no sistema.</p>`;
-                return;
-            }
-
-            // Mapeando com os campos REAIS da sua API
-            vagas = data.map(v => ({
-                id: v.id_vaga,
-                titulo: v.area_de_trabalho,     // nome da área
-                empresa: v.nome_empresa,
-                salario: v.salario,
-                cidade: v.cidade_empresa,
-                estado: v.estado_empresa,
-                is_pcd: v.is_pcd,
-                descricao: v.descricao,
-                imagem: "https://cdn-icons-png.flaticon.com/512/609/609803.png",
-                tipoTrabalho: "Tempo Integral" // pode ajustar futuramente
-            }));
-
-            criarCards(vagas);
-        } catch (erro) {
-            console.error("Erro:", erro);
-            container.innerHTML = `<p style="color:red;">Falha ao conectar com o servidor.</p>`;
+        if (!Array.isArray(data) || data.length === 0) {
+          container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada no sistema.</p>`;
+          vagas = [];
+          return;
         }
+
+        // Map flexível (fallbacks) - adapta ao formato retornado pelo backend
+        vagas = data.map(v => ({
+          id: v.id_vaga ?? v.id ?? v.idVaga ?? null,
+          titulo: v.nome ?? v.area_de_trabalho ?? v.titulo ?? 'Vaga',
+          empresa: v.nome_empresa ?? v.nome_empresa_old ?? v.nome ?? (v.id_empresa ? `Empresa #${v.id_empresa}` : '—'),
+          salario: (v.preco ?? v.salario ?? v.preco_vaga ?? 0),
+          cidade: v.cidade_empresa ?? v.cidade ?? '',
+          estado: v.estado_empresa ?? v.estado ?? '',
+          is_pcd: Boolean(v.is_pcd ?? v.isPCD ?? false),
+          descricao: v.descricao ?? '',
+          imagem: v.imagem ?? "https://cdn-icons-png.flaticon.com/512/609/609803.png",
+          tipoTrabalho: (v.tipoTrabalho ?? "Tempo Integral")
+        }));
+
+        criarCards(vagas);
+      } catch (err) {
+        console.error("Erro ao carregar vagas:", err);
+        container.innerHTML = `<p style="color:red;">Falha ao conectar com o servidor.</p>`;
+      }
     }
 
+    // ===== CRIAR CARDS =====
     function criarCards(lista) {
-        container.innerHTML = "";
+      container.innerHTML = '';
+      if (!lista || lista.length === 0) {
+        container.innerHTML = `<p style="color:#666;">Nenhuma vaga para mostrar.</p>`;
+        return;
+      }
 
-        lista.forEach((vaga, index) => {
-            const card = document.createElement("div");
-            card.classList.add("col-md-4", "mb-4");
+      lista.forEach((vaga, idx) => {
+        const div = document.createElement('div');
+        div.className = 'col-md-4 mb-4';
 
-            card.innerHTML = `
-                <div class="card shadow-sm">
-                    <img src="${vaga.imagem}" class="card-img-top" alt="Imagem da vaga">
-                    <div class="card-body">
-                        <h5 class="card-title">${vaga.titulo}</h5>
-                        <p><strong>Empresa:</strong> ${vaga.empresa}</p>
-                        <p><strong>Localização:</strong> ${vaga.cidade} - ${vaga.estado}</p>
-                        <p><strong>Salário:</strong> R$ ${vaga.salario}</p>
-                        ${vaga.is_pcd ? '<span class="badge bg-success">PCD</span>' : ''}
-                        <button class="btn btn-primary mt-2" data-index="${index}">Detalhes</button>
-                    </div>
-                </div>
-            `;
+        div.innerHTML = `
+          <div class="card shadow-sm h-100">
+            <img src="${vaga.imagem}" class="card-img-top" alt="Imagem vaga">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">${vaga.titulo}</h5>
+              <p class="mb-1"><strong>Empresa:</strong> ${vaga.empresa}</p>
+              <p class="mb-1"><strong>Local:</strong> ${vaga.cidade}${vaga.cidade && vaga.estado ? ' - ' + vaga.estado : ''}</p>
+              <p class="mb-1"><strong>Salário:</strong> R$ ${Number(vaga.salario).toLocaleString('pt-BR')}</p>
+              ${vaga.is_pcd ? '<span class="badge bg-success mb-2">PCD</span>' : ''}
+              <div class="mt-auto">
+                <button class="btn btn-primary w-100" data-index="${idx}">Detalhes</button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
 
-            container.appendChild(card);
+      container.querySelectorAll('button[data-index]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const i = e.currentTarget.getAttribute('data-index');
+          mostrarDetalhesVaga(Number(i));
         });
-
-        // evento dos botões
-        container.querySelectorAll("button[data-index]").forEach(btn => {
-            btn.addEventListener("click", e => {
-                const i = e.target.getAttribute("data-index");
-                mostrarDetalhesVaga(i);
-            });
-        });
+      });
     }
 
+    // ===== MOSTRAR DETALHES =====
     function mostrarDetalhesVaga(index) {
-        const vaga = vagas[index];
-        document.getElementById("modal-titulo").innerText = vaga.titulo;
-        document.getElementById("modal-imagem").src = vaga.imagem;
-        document.getElementById("modal-descricao").innerText = vaga.descricao;
-        document.getElementById("modal-localizacao").innerText = vaga.cidade + " - " + vaga.estado;
-        document.getElementById("modal-tipo").innerText = vaga.tipoTrabalho;
-        document.getElementById("modal-contato").innerText = vaga.empresa;
-
-        const modal = new bootstrap.Modal(document.getElementById("modalDetalhes"));
-        modal.show();
+      const vaga = vagas[index];
+      if (!vaga) return;
+      document.getElementById('modal-titulo').innerText = vaga.titulo;
+      document.getElementById('modal-descricao').innerText = vaga.descricao || '—';
+      document.getElementById('modal-localizacao').innerText = (vaga.cidade && vaga.estado) ? `${vaga.cidade} - ${vaga.estado}` : (vaga.cidade || vaga.estado || '—');
+      document.getElementById('modal-tipo').innerText = vaga.tipoTrabalho;
+      document.getElementById('modal-contato').innerText = vaga.empresa;
+      document.getElementById('modal-imagem').src = vaga.imagem || "https://cdn-icons-png.flaticon.com/512/609/609803.png";
+      const modal = new bootstrap.Modal(document.getElementById('modalDetalhes'));
+      modal.show();
     }
 
-    // FILTROS
+    // ===== FILTROS =====
     function aplicarFiltros() {
-        const buscaCargo = document.getElementById("search-cargo").value.toLowerCase();
-        const localizacao = document.getElementById("search-localizacao").value;
+      const busca = (document.getElementById('search-cargo').value || '').toLowerCase();
+      const local = (document.getElementById('search-localizacao').value || '');
+      const filtradas = vagas.filter(v => {
+        const okBusca = (v.titulo || '').toLowerCase().includes(busca) || (v.empresa || '').toLowerCase().includes(busca);
+        const okLocal = local === 'Selecione uma localização' || !local || (v.cidade || '').includes(local);
+        return okBusca && okLocal;
+      });
+      criarCards(filtradas);
+    }
 
-        const filtradas = vagas.filter(v => {
-            const correspondeBusca =
-                v.titulo.toLowerCase().includes(buscaCargo) ||
-                v.empresa.toLowerCase().includes(buscaCargo);
+    document.getElementById('search-cargo').addEventListener('input', aplicarFiltros);
+    document.getElementById('search-localizacao').addEventListener('change', aplicarFiltros);
 
-            const correspondeLocal =
-                localizacao === "Selecione uma localização" ||
-                v.cidade.includes(localizacao);
+    // ===== CRIAR VAGA =====
+    async function criarVaga() {
+      msgCriar.innerHTML = '';
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Você precisa estar logado como empresa para criar vagas.');
+        return;
+      }
+      if (!isEmpresaToken(token)) {
+        alert('O token não pertence a uma empresa. Faça login com uma conta de empresa.');
+        return;
+      }
 
-            return correspondeBusca && correspondeLocal;
+      const formData = new FormData(form);
+      const titulo = formData.get('titulo')?.trim();
+      const salario = Number(formData.get('salario'));
+      const id_categoria = Number(formData.get('id_categoria')) || 1;
+      const descricao = formData.get('descricao')?.trim();
+      const is_pcd = formData.get('pcd') === '1';
+
+      if (!titulo || isNaN(salario)) {
+        msgCriar.innerHTML = '<span style="color:red;">Preencha título e salário corretamente.</span>';
+        return;
+      }
+
+      // Corpo esperado pelo seu backend: { nome, preco, is_pcd, id_categoria }
+      const payload = {
+        nome: titulo,
+        preco: salario,
+        is_pcd: is_pcd,
+        id_categoria: id_categoria,
+        descricao: descricao // campo extra (ok enviar)
+      };
+
+      try {
+        const res = await fetch(ROUTE_CREATE, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
         });
 
-        criarCards(filtradas);
+        if (res.status === 401 || res.status === 403) {
+          const err = await res.json().catch(()=>({mensagem:'Acesso negado.'}));
+          msgCriar.innerHTML = `<span style="color:red;">${err.mensagem || 'Acesso negado (token).'}</span>`;
+          return;
+        }
+
+        const data = await res.json();
+
+        if (data.sucesso) {
+          msgCriar.innerHTML = '<span style="color:green;">Vaga criada com sucesso!</span>';
+          form.reset();
+          // fecha modal
+          const modalEl = document.getElementById('modalCriarVaga');
+          const bsModal = bootstrap.Modal.getInstance(modalEl);
+          if (bsModal) bsModal.hide();
+          // recarrega vagas
+          carregarVagas();
+        } else {
+          msgCriar.innerHTML = `<span style="color:red;">Erro: ${data.mensagem || data.erro || 'Não foi possível criar.'}</span>`;
+        }
+      } catch (err) {
+        console.error('Erro criar vaga:', err);
+        msgCriar.innerHTML = '<span style="color:red;">Erro ao criar vaga. Tente novamente.</span>';
+      }
     }
 
-    document.getElementById("search-cargo").addEventListener("input", aplicarFiltros);
-    document.getElementById("search-localizacao").addEventListener("change", aplicarFiltros);
+    btnSalvarVaga.addEventListener('click', (e) => {
+      e.preventDefault();
+      criarVaga();
+    });
 
-    carregarVagas();
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const token = localStorage.getItem("token");
-    const btnCriarConta = document.getElementById("botaocriar");
+    // ===== Mostrar/esconder elementos dependendo do token =====
+    function ajustarInterfacePorToken() {
+      const token = localStorage.getItem('token');
+      // esconder "Criar Conta" se logado
+      const btnCriarConta = document.querySelector('.botaocriar');
+      if (btnCriarConta) btnCriarConta.style.display = token ? 'none' : 'inline-block';
 
-    if (token) {
-        // Usuário logado → esconde o botão
-        if (btnCriarConta) btnCriarConta.style.display = "none";
-        console.log("Usuário logado, botão 'Criar Conta' escondido.");
-    } else {
-        // Usuário não logado → mostra o botão
-        if (btnCriarConta) btnCriarConta.style.display = "inline-block";
-        console.log("Usuário não logado, botão 'Criar Conta' visível.");
+      // mostrar botão criar vaga apenas para empresas
+      if (btnAbrirCriar) {
+        if (token && isEmpresaToken(token)) {
+          btnAbrirCriar.style.display = 'inline-block';
+        } else {
+          btnAbrirCriar.style.display = 'none';
+        }
+      }
+
+      // controlar logout link
+      const btnLogout = document.getElementById('btnLogout');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('usuario_nome');
+          ajustarInterfacePorToken();
+          alert('Deslogado.');
+          // opcional: redirecionar para login
+          // window.location.href = 'login.html';
+        });
+      }
+
+      // saudacao (se existir)
+      const nomeUsuario = localStorage.getItem('usuario_nome');
+      const saudacao = document.getElementById('saudacao');
+      if (saudacao) saudacao.innerText = nomeUsuario ? `Olá, ${nomeUsuario}!` : '';
     }
-});
 
-const nomeUsuario = localStorage.getItem("usuario_nome");
-if (token && nomeUsuario) {
-    const saudacao = document.getElementById("saudacao");
-    if (saudacao) saudacao.innerText = `Olá, ${nomeUsuario}!`;
-}
+    // ===== Inicia =====
+    document.addEventListener('DOMContentLoaded', () => {
+      ajustarInterfacePorToken();
+      carregarVagas();
+    });
 
-</script>
-
-
-
-
-<script src="./js/darkmode.js"></script>
+    // Expor para console se for útil (debug)
+    window._app = { carregarVagas, criarVaga, parseJwt };
+  </script>
 </body>
 </html>

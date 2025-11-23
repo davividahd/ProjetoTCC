@@ -98,11 +98,11 @@
        LOGIN
        ============================== */
     .loginbackground{padding:0;margin:0;display:flex;background:var(--bg-gradient-2);align-items:center;flex-direction:column}
-    .logindiv,.logindiv2{display:flex;background:#fff;flex-direction:column;justify-content: center;align-items:center;text-align:center;border-radius:var(--radius-lg);box-shadow:var(--shadow);margin:10px}
-    .logindiv{height: 500px;width: 500px}
-    .logindiv2{height:750px;width:450px;}
-    .logo{height:120px;width:120px;border-radius:250px;margin-top:70px}
-    .input, input{height:30px;width:250px;background:#e1e1e1;color:#000;font-size:14px;border-radius:12px;border:1px solid lightgrey;padding:4px; margin-left: auto; margin-right: auto;}
+    .logindiv,.logindiv2{display:flex;background:#fff;flex-direction:column;justify-content: center;align-items:center;text-align:center;border-radius:var(--radius-lg);box-shadow:var(--shadow);}
+    .logindiv{height: 500px; width: 390px}
+    .logindiv2{height: auto; width:390px; margin: 15px; margin-bottom: 220px;}
+    .logo{height:120px; width:120px; border-radius:50%;}
+    .input, input{height:30px; width:250px; background:#e1e1e1; color:#000;font-size:14px;border-radius:12px;border:1px solid lightgrey;padding:4px; margin-left: auto; margin-right: auto;}
     button{height:30px;width:260px;border:1px solid rgb(164,52,52);color:#fff;border-radius:var(--radius-lg);cursor:pointer}
     
     /* ==============================
@@ -161,7 +161,7 @@
        RODAPÉ
        ============================== */
     footer{background:var(--bg-gradient-1);color:#fff;padding:40px 20px}
-    .rodape{width:1840px;margin:0 auto;text-align:center;padding:20px;border-radius:10px;background:rgb(255,156,156)}
+    .rodape{max-width:1200px;margin:0 auto;text-align:center;padding:20px;border-radius:10px;background:rgb(255,156,156)}
     .rodape p{margin:10px 0;font-size:1rem}
     .rodape a{color:#fff;text-decoration:none;font-weight:bold;transition:color .3s}
     .rodape a:hover{color:#aa0808}
@@ -172,9 +172,15 @@
     /* ==============================
        TOGGLE
        ============================== */
-    .toggleCheckbox{height:15px;cursor:pointer}
-    .toggleLabel{float:left;}
-    .togglePCD{height: 15px;}
+   .optionsPCD select {display: hidden; height:30px; width:250px; background:#e1e1e1; color:#000;font-size:14px;border-radius:12px;border:1px solid lightgrey;padding:4px; margin-left: auto; margin-right: auto; margin-top: 10px;}
+   .optionsClassi select {display: hidden; height:30px; width:250px; background:#e1e1e1; color:#000;font-size:14px;border-radius:12px;border:1px solid lightgrey;padding:4px; margin-left: auto; margin-right: auto; margin-top: 10px;}
+   .checkbox {margin: 15px; display: flex; flex-direction: row; align-items: center; gap: 2px;}
+   .checkbox div {display: flex; align-items: center;}
+   .checkbox input{height: 25px; width: 25px; margin-left: 15px;}
+   .toggleLabel {cursor: pointer; margin-left: 5px;}
+   .togglePCD {height: 20px; display: flex; box-sizing: border-box; margin: 0;}
+   .toggleCheckbox {height: 20px; display: flex; box-sizing: border-box; margin: 0;}
+  
     /* ==============================
        DARK MODE
        ============================== */
