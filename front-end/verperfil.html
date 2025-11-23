@@ -48,9 +48,7 @@
 
             <!-- PERFIL DO CANDIDATO -->
             <div id="perfilCandidato" class="blocodevisualizar" style="display:none;">
-                <div class="icone" style="margin-right: 180px;">
-                    <img class="fotoicone1" src="./CSS/imagens/perfil.jpg">
-                </div>
+                
 
                 <div class="visualizar">
                     <p><strong>Nome:</strong> <span id="c_nome">—</span></p>
@@ -65,12 +63,14 @@
                     <p><span id="c_endereco">—</span></p>
                 </div>
 
+                
                 <div class="botaoverperfil">
                     <button style="background-color: rgb(255, 44, 44);">Visualizar Currículo</button>
-                    <button onclick="window.location.href='./editarperfil.html'" style="background-color: rgb(255, 44, 44);">
+                    <button id="btnEditar" style="background-color: rgb(255, 44, 44);">
                         Editar
                     </button>
                 </div>
+
             </div>
 
             <!-- PERFIL DA EMPRESA -->
@@ -123,136 +123,104 @@
     <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-    const dados = JSON.parse(localStorage.getItem("dadosUsuario"));
-    const tipo = localStorage.getItem("tipoUsuario");
+    // Recupera o que foi salvo no login
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const tipo = localStorage.getItem("tipoUsuario") || 
+                 document.referrer.includes("empresa") ? "empresa" : "candidato";
 
-    // segurança
-    if (!dados) {
-        alert("Nenhum usuário está logado.");
+    if (!usuario) {
+        alert("Nenhum usuário logado!");
         window.location.href = "login.html";
         return;
     }
 
-    // Determina se é candidato ou empresa
-    const isCandidato = (tipo === "candidato");
-    const isEmpresa = (tipo === "empresa");
+    // Configura o título
+    document.getElementById("tituloPerfil").innerText =
+        tipo === "empresa" ? "Perfil da Empresa" : "Perfil do Candidato";
 
-    // Mostra menus certos
-    document.querySelectorAll(".nav-candidato").forEach(el => {
-        el.style.display = isCandidato ? "block" : "none";
-    });
-    document.querySelectorAll(".nav-empresa").forEach(el => {
-        el.style.display = isEmpresa ? "block" : "none";
-    });
+    // Mostra os menus certos
+    document.querySelectorAll(".nav-candidato")
+        .forEach(el => el.style.display = tipo === "candidato" ? "block" : "none");
 
-    // Exibe o bloco correto
-    document.getElementById("perfilCandidato").style.display = isCandidato ? "flex" : "none";
-    document.getElementById("perfilEmpresa").style.display = isEmpresa ? "flex" : "none";
+    document.querySelectorAll(".nav-empresa")
+        .forEach(el => el.style.display = tipo === "empresa" ? "block" : "none");
 
-    // =====================
-    // 🎯 Preencher CANDIDATO
-    // =====================
-    if (isCandidato) {
-        document.getElementById("tituloPerfil").innerText = "Perfil do Candidato";
+    // ======================================================
+    //              📌   PERFIL DE CANDIDATO
+    // ======================================================
+    if (tipo === "candidato") {
 
-        document.getElementById("c_nome").innerText = dados.nome_completo;
-        document.getElementById("c_email").innerText = dados.email;
-        document.getElementById("c_telefone").innerText = dados.telefone;
-        document.getElementById("c_cpf").innerText = dados.cpf;
-        document.getElementById("c_limite").innerText = dados.limite;
-        document.getElementById("c_pcd").innerText = dados.is_pcd ? "Sim" : "Não";
+        document.getElementById("perfilCandidato").style.display = "flex";
 
-        // Como o login não retorna endereço completo, exibimos o ID
+        document.getElementById("c_nome").innerText = usuario.nome_completo;
+        document.getElementById("c_email").innerText = usuario.email;
+        document.getElementById("c_telefone").innerText = usuario.telefone;
+        document.getElementById("c_cpf").innerText = usuario.cpf;
+        document.getElementById("c_limite").innerText = usuario.limite;
+        document.getElementById("c_pcd").innerText = usuario.is_pcd ? "Sim" : "Não";
+
+        // Como o backend NÃO envia nome da área, apenas id_status
+        document.getElementById("c_area").innerText = "Área ID: " + usuario.id_status;
+
+        // Como o backend não devolve logradouro, só o id_endereco
         document.getElementById("c_endereco").innerText =
-            "ID do Endereço: " + dados.id_endereco;
-
-        // Também não retorna nome da área, só o ID
-        document.getElementById("c_area").innerText =
-            "Área ID: " + dados.id_status;
+            "Endereço cadastrado (ID): " + usuario.id_endereco;
     }
 
-    // ==================
-    // 🎯 Preencher EMPRESA
-    // ==================
-    if (isEmpresa) {
-        document.getElementById("tituloPerfil").innerText = "Perfil da Empresa";
+    // ======================================================
+    //              📌   PERFIL DE EMPRESA
+    // ======================================================
+    if (tipo === "empresa") {
 
-        document.getElementById("e_nome").innerText = dados.nome;
-        document.getElementById("e_email").innerText = dados.email;
-        document.getElementById("e_cnpj").innerText = dados.cnpj;
+        document.getElementById("perfilEmpresa").style.display = "flex";
 
-        document.getElementById("e_cidade").innerText = dados.cidade ?? "—";
-        document.getElementById("e_estado").innerText = dados.estado ?? "—";
+        document.getElementById("e_nome").innerText = usuario.nome;
+        document.getElementById("e_email").innerText = usuario.email;
+        document.getElementById("e_cnpj").innerText = usuario.cnpj;
+
+        document.getElementById("e_cidade").innerText = usuario.cidade || "—";
+        document.getElementById("e_estado").innerText = usuario.estado || "—";
     }
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
 
-    const dados = JSON.parse(localStorage.getItem("dadosUsuario"));
-    const tipo = localStorage.getItem("tipoUsuario");
-
-    // segurança
-    if (!dados) {
-        alert("Nenhum usuário está logado.");
+    // Botão de Logout
+    document.getElementById("btnLogout").addEventListener("click", () => {
+        localStorage.clear();
         window.location.href = "login.html";
-        return;
-    }
-
-    // Determina se é candidato ou empresa
-    const isCandidato = (tipo === "candidato");
-    const isEmpresa = (tipo === "empresa");
-
-    // Mostra menus certos
-    document.querySelectorAll(".nav-candidato").forEach(el => {
-        el.style.display = isCandidato ? "block" : "none";
     });
-    document.querySelectorAll(".nav-empresa").forEach(el => {
-        el.style.display = isEmpresa ? "block" : "none";
-    });
-
-    // Exibe o bloco correto
-    document.getElementById("perfilCandidato").style.display = isCandidato ? "flex" : "none";
-    document.getElementById("perfilEmpresa").style.display = isEmpresa ? "flex" : "none";
-
-    // =====================
-    // 🎯 Preencher CANDIDATO
-    // =====================
-    if (isCandidato) {
-        document.getElementById("tituloPerfil").innerText = "Perfil do Candidato";
-
-        document.getElementById("c_nome").innerText = dados.nome_completo;
-        document.getElementById("c_email").innerText = dados.email;
-        document.getElementById("c_telefone").innerText = dados.telefone;
-        document.getElementById("c_cpf").innerText = dados.cpf;
-        document.getElementById("c_limite").innerText = dados.limite;
-        document.getElementById("c_pcd").innerText = dados.is_pcd ? "Sim" : "Não";
-
-        // Como o login não retorna endereço completo, exibimos o ID
-        document.getElementById("c_endereco").innerText =
-            "ID do Endereço: " + dados.id_endereco;
-
-        // Também não retorna nome da área, só o ID
-        document.getElementById("c_area").innerText =
-            "Área ID: " + dados.id_status;
-    }
-
-    // ==================
-    // 🎯 Preencher EMPRESA
-    // ==================
-    if (isEmpresa) {
-        document.getElementById("tituloPerfil").innerText = "Perfil da Empresa";
-
-        document.getElementById("e_nome").innerText = dados.nome;
-        document.getElementById("e_email").innerText = dados.email;
-        document.getElementById("e_cnpj").innerText = dados.cnpj;
-
-        document.getElementById("e_cidade").innerText = dados.cidade ?? "—";
-        document.getElementById("e_estado").innerText = dados.estado ?? "—";
-    }
 });
-</script>
 
+const btnEditar = document.getElementById("btnEditar");
+    let editando = false;
+
+    btnEditar.addEventListener("click", () => {
+        const container = document.getElementById("perfilCandidato");
+        if (!container) return;
+
+        if (!editando) {
+            // Modo edição
+            container.querySelectorAll("span").forEach(span => {
+                const valor = span.textContent === "—" ? "" : span.textContent;
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = valor;
+                input.style.width = "200px";
+                span.replaceWith(input);
+            });
+            btnEditar.textContent = "Salvar";
+            editando = true;
+        } else {
+            // Salvar alterações
+            container.querySelectorAll("input").forEach(input => {
+                const span = document.createElement("span");
+                span.textContent = input.value || "—";
+                input.replaceWith(span);
+            });
+            btnEditar.textContent = "Editar";
+            editando = false;
+        }
+    });
+
+</script>
 
 
 </body>
