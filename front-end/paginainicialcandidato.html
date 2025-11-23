@@ -31,7 +31,6 @@
 
             <img style="float: left; height: 80px; width: 80px; border-radius: 50%; margin: 10px;" src="./CSS/imagens/iconedosite.png">
 
-            <li><a id="botaocriar" class="botaocriar" href="criarconta.html">Criar Conta</a></li>
             <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
             <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height: 40px; width: 40px; border-radius: 50%;">🌙</button></li>
         </ul>
@@ -152,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 cidade: v.cidade_empresa,
                 estado: v.estado_empresa,
                 is_pcd: v.is_pcd,
-                descricao: v.descricao,
+                descricao: v.descricao || "—",
                 imagem: v.imagem ?? "./css/imagens/Designer.png",
                 tipoTrabalho: "Tempo Integral"
             }));

@@ -1,7 +1,7 @@
 document.getElementById("btnLogin").addEventListener("click", async () => {
     const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value;
-    const tipo = document.getElementById("tipo").value;
+    const tipoSelecionado = document.getElementById("tipo").value;
     const msg = document.getElementById("msg");
 
     if (!email || !senha) {
@@ -15,34 +15,31 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
         const resposta = await fetch("https://faithful-spirit-teste1.up.railway.app/tcc/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, senha, tipo })
+            body: JSON.stringify({ email, senha, tipo: tipoSelecionado })
         });
 
         const data = await resposta.json();
-        console.log("Resposta do servidor:", data);
+        console.log("LOGIN RESPOSTA:", data);
 
-        // ----------- ERRO DE LOGIN -----------
         if (!data.sucesso) {
             msg.innerText = "❌ " + data.mensagem;
             return;
         }
 
-        // ---------- FORMATO ATUAL DO BACKEND ----------
-        // data.dados = { cpf, nome_completo, telefone, ... }
+        if (!data.token) {
+            msg.innerText = "❌ Servidor não retornou token.";
+            return;
+        }
 
-        // salva o token
+        // adiciona "tipo" manualmente
+        const usuario = { ...data.dados, tipo: tipoSelecionado };
+
         localStorage.setItem("jwtToken", data.token);
+        localStorage.setItem("usuario", JSON.stringify(usuario));
 
-        // salva as infos do usuário (objeto completo)
-        localStorage.setItem("usuario", JSON.stringify(data.dados));
+        msg.innerText = "Login realizado!";
 
-        // salva o identificador único (CPF)
-        localStorage.setItem("cpf_usuario_logado", data.dados.cpf);
-
-        msg.innerText = "Login realizado! Redirecionando...";
-
-        // tipo vem da tela, não do backend
-        if (tipo === "empresa") {
+        if (tipoSelecionado === "empresa") {
             window.location.href = "./paginainicialempresa.html";
         } else {
             window.location.href = "./paginainicialcandidato.html";
@@ -50,6 +47,6 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
 
     } catch (erro) {
         console.error("Erro de conexão:", erro);
-        msg.innerText = "Erro ao conectar com o servidor.";
+        msg.innerText = "Erro ao conectar ao servidor.";
     }
 });

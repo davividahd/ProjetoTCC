@@ -37,7 +37,6 @@
       </li>
 
       <img style="float:left;height:90px;width:90px;border-radius:250px;margin-left:20px;margin-top:20px;" src="./CSS/imagens/iconedosite.png" alt="logo">
-      <li><a class="botaocriar" href="criarconta.html">Criar Conta</a></li>
       <li><input class="pesquisa" type="text" id="search-input" placeholder="Pesquisar"></li>
       <li><button class="btn btn-secondary" id="toggle-dark-mode" style="height:40px;width:40px;border-radius:50%;">🌙</button></li>
     </ul>
@@ -170,260 +169,218 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./js/darkmode.js"></script>
 
-  <script>
-    // ===== CONFIG =====
-    const ROUTE_LIST = "https://faithful-spirit-teste1.up.railway.app/tcc/busca_Vaga";
-    const ROUTE_CREATE = "https://faithful-spirit-teste1.up.railway.app/tcc/add_vaga";
+ <script>
+// ===== CONFIG =====
+const ROUTE_LIST = "https://faithful-spirit-teste1.up.railway.app/tcc/busca_Vaga";
+const ROUTE_CREATE = "https://faithful-spirit-teste1.up.railway.app/tcc/add_vaga";
 
-    // ===== HELPERS =====
-    function parseJwt (token) {
-      try {
+// ====== VERIFICA LOGIN ======
+document.addEventListener("DOMContentLoaded", () => {
+
+    const token = localStorage.getItem("jwtToken");
+    let usuario = null;
+
+    try {
+        usuario = JSON.parse(localStorage.getItem("usuario"));
+    } catch {
+        usuario = null;
+    }
+
+    console.log("TOKEN:", token);
+    console.log("USUARIO:", usuario);
+
+    const tipo = usuario?.tipo || null;
+
+    console.log("TIPO IDENTIFICADO:", tipo);
+
+    if (!token || !usuario || tipo !== "empresa") {
+        alert("Você precisa estar logado como empresa para criar vagas.");
+        window.location.href = "./login.html";
+        return;
+    }
+
+    ajustarInterfacePorToken();
+    carregarVagas();
+});
+
+// ===== HELPERS =====
+function parseJwt(token) {
+    try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         return JSON.parse(jsonPayload);
-      } catch (e) {
+    } catch {
         return null;
-      }
+    }
+}
+
+function isEmpresaToken(jwtToken) {
+    const payload = parseJwt(jwtToken);
+    return payload && payload.tipo === "empresa";
+}
+
+// ===== DOM refs =====
+const container = document.getElementById('vaga-container');
+const form = document.getElementById('formCriarVaga');
+const msgCriar = document.getElementById('msg-criar');
+const btnSalvarVaga = document.getElementById('btnSalvarVaga');
+const btnAbrirCriar = document.getElementById('btnAbrirCriar');
+
+// ===== AJUSTE DE BOTÕES POR TOKEN =====
+function ajustarInterfacePorToken() {
+    const token = localStorage.getItem("jwtToken");
+    
+    if (btnAbrirCriar) {
+        if (token && isEmpresaToken(token)) {
+            btnAbrirCriar.style.display = "inline-block";
+        } else {
+            btnAbrirCriar.style.display = "none";
+        }
     }
 
-    function isEmpresaToken(token) {
-      const payload = parseJwt(token);
-      return payload && payload.tipo === 'empresa';
+    const btnLogout = document.getElementById("btnLogout");
+    if (btnLogout) {
+        btnLogout.onclick = () => {
+            localStorage.removeItem("jwtToken");
+            localStorage.removeItem("usuario");
+            alert("Deslogado.");
+            window.location.href = "./login.html";
+        };
     }
+}
 
-    // ===== DOM refs =====
-    const container = document.getElementById('vaga-container');
-    const form = document.getElementById('formCriarVaga');
-    const msgCriar = document.getElementById('msg-criar');
-    const btnSalvarVaga = document.getElementById('btnSalvarVaga');
-    const btnAbrirCriar = document.getElementById('btnAbrirCriar');
-
-    // estado
-    let vagas = [];
-
-    // ===== CARREGAR VAGAS =====
-    async function carregarVagas() {
-      container.innerHTML = '<div class="text-center py-4">Carregando vagas...</div>';
-      try {
+// ===== CARREGAR VAGAS =====
+async function carregarVagas() {
+    container.innerHTML = '<div class="text-center py-4">Carregando vagas...</div>';
+    try {
         const res = await fetch(ROUTE_LIST);
         if (!res.ok) throw new Error("Resposta não OK: " + res.status);
         const data = await res.json();
 
         if (!Array.isArray(data) || data.length === 0) {
-          container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada no sistema.</p>`;
-          vagas = [];
-          return;
+            container.innerHTML = `<p style="color:red; font-weight:bold;">Nenhuma vaga cadastrada no sistema.</p>`;
+            return;
         }
 
-        // Map flexível (fallbacks) - adapta ao formato retornado pelo backend
         vagas = data.map(v => ({
-          id: v.id_vaga ?? v.id ?? v.idVaga ?? null,
-          titulo: v.nome ?? v.area_de_trabalho ?? v.titulo ?? 'Vaga',
-          empresa: v.nome_empresa ?? v.nome_empresa_old ?? v.nome ?? (v.id_empresa ? `Empresa #${v.id_empresa}` : '—'),
-          salario: (v.preco ?? v.salario ?? v.preco_vaga ?? 0),
-          cidade: v.cidade_empresa ?? v.cidade ?? '',
-          estado: v.estado_empresa ?? v.estado ?? '',
-          is_pcd: Boolean(v.is_pcd ?? v.isPCD ?? false),
-          descricao: v.descricao ?? '',
-          imagem: v.imagem ?? "./css/imagens/Designer.png",
-          tipoTrabalho: (v.tipoTrabalho ?? "Tempo Integral")
+            id: v.id_vaga ?? v.id,
+            titulo: v.nome ?? v.area_de_trabalho ?? 'Vaga',
+            empresa: v.nome_empresa ?? v.nome ?? '—',
+            salario: v.preco ?? v.salario ?? 0,
+            cidade: v.cidade_empresa ?? '',
+            estado: v.estado_empresa ?? '',
+            is_pcd: Boolean(v.is_pcd),
+            descricao: v.descricao ?? '',
+            imagem: v.imagem ?? "./css/imagens/Designer.png",
+            tipoTrabalho: v.tipoTrabalho ?? "Tempo Integral"
         }));
 
         criarCards(vagas);
-      } catch (err) {
-        console.error("Erro ao carregar vagas:", err);
-        container.innerHTML = `<p style="color:red;">Falha ao conectar com o servidor.</p>`;
-      }
+
+    } catch (err) {
+        console.error(err);
+        container.innerHTML = `<p style="color:red;">Erro ao carregar vagas.</p>`;
+    }
+}
+
+// ===== CRIAR CARDS =====
+function criarCards(lista) {
+    container.innerHTML = '';
+    if (!lista.length) {
+        container.innerHTML = `<p style="color:#666;">Nenhuma vaga disponível.</p>`;
+        return;
     }
 
-    // ===== CRIAR CARDS =====
-    function criarCards(lista) {
-      container.innerHTML = '';
-      if (!lista || lista.length === 0) {
-        container.innerHTML = `<p style="color:#666;">Nenhuma vaga para mostrar.</p>`;
-        return;
-      }
-
-      lista.forEach((vaga, idx) => {
+    lista.forEach((vaga, idx) => {
         const div = document.createElement('div');
         div.className = 'col-md-4 mb-4';
 
         div.innerHTML = `
-          <div class="card shadow-sm h-100">
-            <img src="${vaga.imagem}" class="card-img-top" alt="Imagem vaga">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">${vaga.titulo}</h5>
-              <p class="mb-1"><strong>Empresa:</strong> ${vaga.empresa}</p>
-              <p class="mb-1"><strong>Local:</strong> ${vaga.cidade}${vaga.cidade && vaga.estado ? ' - ' + vaga.estado : ''}</p>
-              <p class="mb-1"><strong>Salário:</strong> R$ ${Number(vaga.salario).toLocaleString('pt-BR')}</p>
-              ${vaga.is_pcd ? '<span class="badge bg-success mb-2">PCD</span>' : ''}
-              <div class="mt-auto">
-                <button class="btn btn-primary w-100" data-index="${idx}">Detalhes</button>
-              </div>
+            <div class="card shadow-sm h-100">
+                <img src="${vaga.imagem}" class="card-img-top">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${vaga.titulo}</h5>
+                    <p><strong>Empresa:</strong> ${vaga.empresa}</p>
+                    <p><strong>Local:</strong> ${vaga.cidade} - ${vaga.estado}</p>
+                    <p><strong>Salário:</strong> R$ ${Number(vaga.salario).toLocaleString('pt-BR')}</p>
+                    ${vaga.is_pcd ? '<span class="badge bg-success mb-2">PCD</span>' : ''}
+                    <button class="btn btn-primary mt-auto" onclick="mostrarDetalhesVaga(${idx})">Detalhes</button>
+                </div>
             </div>
-          </div>
         `;
         container.appendChild(div);
-      });
+    });
+}
 
-      container.querySelectorAll('button[data-index]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const i = e.currentTarget.getAttribute('data-index');
-          mostrarDetalhesVaga(Number(i));
-        });
-      });
+// ===== MOSTRAR DETALHES =====
+function mostrarDetalhesVaga(i) {
+    const v = vagas[i];
+    document.getElementById("modal-titulo").innerText = v.titulo;
+    document.getElementById("modal-descricao").innerText = v.descricao;
+    document.getElementById("modal-localizacao").innerText = `${v.cidade} - ${v.estado}`;
+    document.getElementById("modal-tipo").innerText = v.tipoTrabalho;
+    document.getElementById("modal-contato").innerText = v.empresa;
+    document.getElementById("modal-imagem").src = v.imagem;
+
+    new bootstrap.Modal(document.getElementById("modalDetalhes")).show();
+}
+
+// ===== CRIAR VAGA =====
+async function criarVaga() {
+    msgCriar.innerHTML = '';
+    const token = localStorage.getItem("jwtToken");
+
+    if (!token) {
+        alert("Você precisa estar logado como empresa.");
+        return;
     }
 
-    // ===== MOSTRAR DETALHES =====
-    function mostrarDetalhesVaga(index) {
-      const vaga = vagas[index];
-      if (!vaga) return;
-      document.getElementById('modal-titulo').innerText = vaga.titulo;
-      document.getElementById('modal-descricao').innerText = vaga.descricao || '—';
-      document.getElementById('modal-localizacao').innerText = (vaga.cidade && vaga.estado) ? `${vaga.cidade} - ${vaga.estado}` : (vaga.cidade || vaga.estado || '—');
-      document.getElementById('modal-tipo').innerText = vaga.tipoTrabalho;
-      document.getElementById('modal-contato').innerText = vaga.empresa;
-      document.getElementById('modal-imagem').src = vaga.imagem || "https://cdn-icons-png.flaticon.com/512/609/609803.png";
-      const modal = new bootstrap.Modal(document.getElementById('modalDetalhes'));
-      modal.show();
-    }
+    const formData = new FormData(form);
 
-    // ===== FILTROS =====
-    function aplicarFiltros() {
-      const busca = (document.getElementById('search-cargo').value || '').toLowerCase();
-      const local = (document.getElementById('search-localizacao').value || '');
-      const filtradas = vagas.filter(v => {
-        const okBusca = (v.titulo || '').toLowerCase().includes(busca) || (v.empresa || '').toLowerCase().includes(busca);
-        const okLocal = local === 'Selecione uma localização' || !local || (v.cidade || '').includes(local);
-        return okBusca && okLocal;
-      });
-      criarCards(filtradas);
-    }
+    const payload = {
+    nome: formData.get("titulo"),
+    salario: Number(formData.get("salario")),
+    id_categoria: Number(formData.get("id_categoria")),
+    descricao: formData.get("descricao") || "",
+    is_pcd: formData.get("pcd") === "1"
+};
 
-    document.getElementById('search-cargo').addEventListener('input', aplicarFiltros);
-    document.getElementById('search-localizacao').addEventListener('change', aplicarFiltros);
 
-    // ===== CRIAR VAGA =====
-    async function criarVaga() {
-      msgCriar.innerHTML = '';
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Você precisa estar logado como empresa para criar vagas.');
-        return;
-      }
-      if (!isEmpresaToken(token)) {
-        alert('O token não pertence a uma empresa. Faça login com uma conta de empresa.');
-        return;
-      }
 
-      const formData = new FormData(form);
-      const titulo = formData.get('titulo')?.trim();
-      const salario = Number(formData.get('salario'));
-      const id_categoria = Number(formData.get('id_categoria')) || 1;
-      const descricao = formData.get('descricao')?.trim();
-      const is_pcd = formData.get('pcd') === '1';
-
-      if (!titulo || isNaN(salario)) {
-        msgCriar.innerHTML = '<span style="color:red;">Preencha título e salário corretamente.</span>';
-        return;
-      }
-
-      // Corpo esperado pelo seu backend: { nome, preco, is_pcd, id_categoria }
-      const payload = {
-        nome: titulo,
-        preco: salario,
-        is_pcd: is_pcd,
-        id_categoria: id_categoria,
-        descricao: descricao // campo extra (ok enviar)
-      };
-
-      try {
+    try {
         const res = await fetch(ROUTE_CREATE, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(payload)
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(payload)
         });
-
-        if (res.status === 401 || res.status === 403) {
-          const err = await res.json().catch(()=>({mensagem:'Acesso negado.'}));
-          msgCriar.innerHTML = `<span style="color:red;">${err.mensagem || 'Acesso negado (token).'}</span>`;
-          return;
-        }
 
         const data = await res.json();
 
         if (data.sucesso) {
-          msgCriar.innerHTML = '<span style="color:green;">Vaga criada com sucesso!</span>';
-          form.reset();
-          // fecha modal
-          const modalEl = document.getElementById('modalCriarVaga');
-          const bsModal = bootstrap.Modal.getInstance(modalEl);
-          if (bsModal) bsModal.hide();
-          // recarrega vagas
-          carregarVagas();
+            msgCriar.innerHTML = `<span style="color:green;">Vaga criada com sucesso!</span>`;
+            form.reset();
+            bootstrap.Modal.getInstance(document.getElementById("modalCriarVaga")).hide();
+            carregarVagas();
         } else {
-          msgCriar.innerHTML = `<span style="color:red;">Erro: ${data.mensagem || data.erro || 'Não foi possível criar.'}</span>`;
+            msgCriar.innerHTML = `<span style="color:red;">Erro: ${data.mensagem}</span>`;
         }
-      } catch (err) {
-        console.error('Erro criar vaga:', err);
-        msgCriar.innerHTML = '<span style="color:red;">Erro ao criar vaga. Tente novamente.</span>';
-      }
+
+    } catch {
+        msgCriar.innerHTML = `<span style="color:red;">Erro ao criar vaga.</span>`;
     }
+}
 
-    btnSalvarVaga.addEventListener('click', (e) => {
-      e.preventDefault();
-      criarVaga();
-    });
+btnSalvarVaga.addEventListener("click", (e) => {
+    e.preventDefault();
+    criarVaga();
+});
+</script>
 
-    // ===== Mostrar/esconder elementos dependendo do token =====
-    function ajustarInterfacePorToken() {
-      const token = localStorage.getItem('token');
-      // esconder "Criar Conta" se logado
-      const btnCriarConta = document.querySelector('.botaocriar');
-      if (btnCriarConta) btnCriarConta.style.display = token ? 'none' : 'inline-block';
-
-      // mostrar botão criar vaga apenas para empresas
-      if (btnAbrirCriar) {
-        if (token && isEmpresaToken(token)) {
-          btnAbrirCriar.style.display = 'inline-block';
-        } else {
-          btnAbrirCriar.style.display = 'none';
-        }
-      }
-
-      // controlar logout link
-      const btnLogout = document.getElementById('btnLogout');
-      if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-          localStorage.removeItem('token');
-          localStorage.removeItem('usuario_nome');
-          ajustarInterfacePorToken();
-          alert('Deslogado.');
-          // opcional: redirecionar para login
-          // window.location.href = 'login.html';
-        });
-      }
-
-      // saudacao (se existir)
-      const nomeUsuario = localStorage.getItem('usuario_nome');
-      const saudacao = document.getElementById('saudacao');
-      if (saudacao) saudacao.innerText = nomeUsuario ? `Olá, ${nomeUsuario}!` : '';
-    }
-
-    // ===== Inicia =====
-    document.addEventListener('DOMContentLoaded', () => {
-      ajustarInterfacePorToken();
-      carregarVagas();
-    });
-
-    // Expor para console se for útil (debug)
-    window._app = { carregarVagas, criarVaga, parseJwt };
-  </script>
 </body>
 </html>
